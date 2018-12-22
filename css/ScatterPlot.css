@@ -1,0 +1,44 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+    -fx-background-color: white;
+}
+.plotTitle {
+    -fx-font-size: 24px;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
+.dialogTitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.axis {
+    -fx-tick-length: 10px;
+    -fx-minor-tick-length: 5px;
+    -fx-tick-label-font-size: 14px;
+    -fx-tick-label-font-family: "Arial";
+    -fx-tick-label-fill: black;
+}
+.axis:bottom {
+    -fx-border-color: black transparent transparent transparent;
+}
+.axis:left {
+    -fx-border-color: transparent black transparent transparent;
+}
+.axis-tick-mark {
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}
+.axis-label {
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-font-size: 18px;
+}
+.pane {
+    -fx-background-color: white;    
+}

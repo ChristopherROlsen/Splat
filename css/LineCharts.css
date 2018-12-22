@@ -1,0 +1,91 @@
+.chart-content {
+    -fx-padding: 10px;
+    -fx-background-color: white;
+}
+.chart-title {
+    -fx-background-color: white;
+    -fx-font-size: 24px;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
+.chart-plot-background {
+    -fx-background-color: white;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: silver;
+}
+.axis {
+    -fx-tick-length: 10px;
+    -fx-minor-tick-length: 5px;
+    -fx-tick-label-font-size: 14px;
+    -fx-tick-label-font-family: "Arial";
+    -fx-tick-label-fill: black;
+}
+.axis:bottom {
+    -fx-border-color: black transparent transparent transparent;
+}
+.axis:left {
+    -fx-border-color: transparent black transparent transparent;
+}
+.axis-tick-mark {
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}
+.axis-label {
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-font-size: 18px;
+}
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+.chart-legend {
+   -fx-background-color:  transparent;
+   -fx-padding: 10px;
+}
+.chart-legend-item{
+    -fx-text-fill: black;
+}
+.chart-series-line {    
+    -fx-stroke-width: 2px;
+}
+.default-color0.chart-series-line { 
+    -fx-stroke: black; 
+}
+.default-color1.chart-series-line { 
+    -fx-stroke: black; 
+}
+.default-color2.chart-series-line { 
+    -fx-stroke: black; 
+}
+.default-color3.chart-series-line { 
+    -fx-stroke: black; 
+}
+.default-color0.chart-line-symbol { 
+    -fx-background-color: black, black;
+    -fx-padding: 7px;
+}
+.default-color1.chart-line-symbol { 
+    -fx-background-color: black, black;
+    -fx-shape: "M5,0 L10,9 L5,18 L0,9 Z";
+    -fx-padding: 7px;
+}
+.default-color2.chart-line-symbol { 
+    -fx-background-color: black, black;
+    -fx-shape: "M5,0 L10,8 L0,8 Z";
+    -fx-padding: 7px;
+}
+.default-color3.chart-line-symbol { 
+    -fx-background-color: black, black;
+    -fx-shape: "M2,0 L5,4 L8,0 L10,0 L10,2 L6,5 L10,8 L10,10 L8,10 L5,6 L2,10 L0,10 L0,8 L4,5 L0,2 L0,0 Z";
+    -fx-padding: 7px;
+}

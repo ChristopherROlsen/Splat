@@ -1,0 +1,73 @@
+.chart-content {
+    -fx-padding: 10px;
+    -fx-background-color: white;
+}
+.chart-title {
+    -fx-background-color: white;
+    -fx-font-size: 24px;
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+}
+.dialogTitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+.chart-plot-background {
+    -fx-background-color: white;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: transparent;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: silver;
+}
+.axis {
+    -fx-tick-length: 10px;
+    -fx-minor-tick-length: 5px;
+    -fx-tick-label-font-size: 14px;
+    -fx-tick-label-font-family: "Arial";
+    -fx-tick-label-fill: black;
+}
+.axis:bottom {
+    -fx-border-color: black transparent transparent transparent;
+}
+.axis:left {
+    -fx-border-color: transparent black transparent transparent;
+}
+.axis-tick-mark {
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+}
+.axis-label {
+    -fx-text-fill: black;
+    -fx-font-family: "Arial";
+    -fx-font-size: 18px;
+}
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+.chart-series-area-line {
+    -fx-stroke-width: 2px;
+}
+.default-color0.chart-series-area-line { 
+    -fx-stroke: black;
+    -fx-stroke-width: 1px;
+}
+.default-color0.chart-series-area-fill {
+    -fx-fill: lightgray;
+}
+.chart-area-symbol { 
+    -fx-background-color: null, null; 
+}
+.vbox {
+    -fx-background-color: whitesmoke;
+}
+.hbox {
+    -fx-background-color: white; 
+}

@@ -1,0 +1,34 @@
+.menu {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
+.colHeadings {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+    -fx-text-fill: black;
+    -fx-background-color: yellow;
+    -fx-pref-width: 90px;
+    -fx-border-color: transparent gray transparent gray;
+    -fx-border-width: 1px;
+}
+.rowHeadings {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+    -fx-background-color: lightgray;
+    -fx-pref-width: 50px;
+    -fx-border-color: darkgray;
+    -fx-border-width: 1px;
+    -fx-alignment: center;
+}
+.cells {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: black;
+    -fx-alignment: center-right;
+    -fx-background-color: white;
+    -fx-border-color: gray;
+    -fx-border-width: 1px;
+    -fx-pref-width: 90px;
+}
