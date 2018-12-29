@@ -1,14 +1,14 @@
 /**************************************************
  *            ANOVA1_MeanAndErrorView             *
- *                    05/24/18                    *
- *                      18:00                     *
+ *                    12/24/18                    *
+ *                      06:00                     *
  *************************************************/
 
 package ANOVA_One;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
 import javafx.collections.FXCollections;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.RadioButton;
@@ -64,7 +64,11 @@ public class ANOVA1_MeanAndErrorView extends ANOVA1_View {
         gcANOVA1.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 14));
         anova1_ContainingPane = new Pane();
         txtTitle1 = new Text(50, 25, " Mean +/- Error bars ");
-        txtTitle2 = new Text (60, 45, " Mean +/- Error bars ");
+        explanVar = anova1Dashboard.getExplanVar();
+        responseVar = anova1Dashboard.getResponseVar();
+        System.out.println("69 ANOVA_Mean&Error, explan/resp = " + explanVar + " / " + responseVar);
+        String strForTitle2 = responseVar + " vs. " + explanVar;
+        txtTitle2 = new Text (60, 45, strForTitle2);
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }

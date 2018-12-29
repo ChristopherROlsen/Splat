@@ -7,8 +7,8 @@
 package ANOVA_One;
 
 import genericClasses.JustAnAxis;
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
 import javafx.scene.paint.Color;
 import javafx.collections.FXCollections;
 import javafx.scene.canvas.Canvas;

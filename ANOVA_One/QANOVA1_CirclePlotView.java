@@ -5,8 +5,8 @@
  *************************************************/
 package ANOVA_One;
 
-import genericClasses.UnivariateContinDataObj;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;

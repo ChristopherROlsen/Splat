@@ -1,13 +1,13 @@
 /**************************************************
- *                QANOVA1_Dashboard                *
- *                    12/01/18                    *
- *                     12:00                      *
+ *                QANOVA1_Dashboard               *
+ *                    12/25/18                    *
+ *                     15:00                      *
  *************************************************/
 package ANOVA_One;
 
-import genericClasses.Dashboard;
+import superClasses.Dashboard;
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;

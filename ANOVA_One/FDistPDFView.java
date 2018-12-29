@@ -1,14 +1,14 @@
 /**************************************************
  *                FDistPDFView                    *
- *                  12/01/18                      *
- *                    12:00                       *
+ *                  12/23/18                      *
+ *                    00:00                       *
  *************************************************/
 
 package ANOVA_One;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.Scatterplot_View;
+import superClasses.Scatterplot_View;
 import java.util.ArrayList;
 import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
@@ -35,7 +35,7 @@ public class FDistPDFView extends Scatterplot_View
     double fStat, leftTailCutPoint, rightTailCutPoint, middle_ForGraph, 
            fromHere, toThere, delta, bigDelta, theCriticalValue;
     
-    final double MIDDLE_CHISQ = 0.9999;
+    final double MIDDLE_FDIST = 0.9999;
     final double[] alphas = {0.10, 0.05, 0.025, 0.01};
     double[] initialInterval;
     
@@ -88,7 +88,7 @@ public class FDistPDFView extends Scatterplot_View
         for (int spaces = 1; spaces < maxSpaces; spaces++)
             stringOfNSpaces.add(stringOfNSpaces.get(spaces - 1) + " ");
          
-        middle_ForGraph = MIDDLE_CHISQ; 
+        middle_ForGraph = MIDDLE_FDIST; 
 
         initialInterval = fDistr.getInverseMiddleArea(middle_ForGraph);
         identifyPValue = true; identifyAlphas = true;
@@ -138,12 +138,22 @@ public class FDistPDFView extends Scatterplot_View
     }
     
     private void initializeGraphParameters() {
-        initialInterval = fDistr.getInverseMiddleArea(MIDDLE_CHISQ);
+        initialInterval = fDistr.getInverseMiddleArea(MIDDLE_FDIST);
         fromHere = initialInterval[0];
         toThere = initialInterval[1];
         xAxis = new JustAnAxis(fromHere, toThere);
         xAxis.setSide(Side.BOTTOM);       
         prepareTheDensityAxis();
+        
+        //  Density at mode
+        double dbl_df1 = df1;
+        double dbl_df2 = df2;
+        yDataMax = 1.0; //  Initialize to big picture
+        if (df1 > 2) {
+            double modeIsAt = (dbl_df1 - 2.) * dbl_df2 / (dbl_df1 * (dbl_df2 + 2.0));
+            yDataMax = 1.05 * fDistr.getDensity(modeIsAt);
+        }
+ 
         yAxis = new JustAnAxis(yDataMin, yDataMax);
         yAxis.setSide(Side.LEFT);
         yAxis.forceLowScaleEndToBe(0.0);  

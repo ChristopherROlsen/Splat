@@ -1,14 +1,14 @@
 /**************************************************
  *                  QANOVA1_View                  *
- *                    12/18/18                    *
- *                      09:00                     *
+ *                    12/26/18                    *
+ *                      18:00                     *
  *************************************************/
 package ANOVA_One;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.UnivariateContinDataObj;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -62,13 +62,11 @@ public class QANOVA1_View extends Scatterplot_W_CheckBoxes_View {
                 withThisWidth, withThisHeight);
         
         allTheLabels = FXCollections.observableArrayList();
-        // categoryLabels = FXCollections.observableArrayList();
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight;
         this.whichView = whichView;
         this.qanova1_Model = qanova1Model;
         allTheLabels = qanova1Model.getCategoryLabels();
-        System.out.println("89 QANOVA1_View, allTheLabels = " + allTheLabels);
         qanova1Canvas = new Canvas(withThisWidth, withThisHeight);
         anchorTitleInfo = new AnchorPane();
         qanova1Canvas.heightProperty().addListener(ov-> {doTheGraph();});
@@ -80,7 +78,6 @@ public class QANOVA1_View extends Scatterplot_W_CheckBoxes_View {
         
     public void completeTheDeal() { 
         initializeGraphParameters();
-        // setUpUI(); 
         makeTheCheckBoxes();    
         setUpAnchorPane();
         setHandlers();
@@ -91,7 +88,6 @@ public class QANOVA1_View extends Scatterplot_W_CheckBoxes_View {
     public void initializeGraphParameters() {  
         double tempUpDown;
         allTheQDVs = qanova1_Model.getAllTheQDVs();
-    
         nVariables = allTheQDVs.size() - 1;   //  Excluding 0
         means = new double[nVariables];
         stDevs = new double[nVariables];
@@ -120,10 +116,8 @@ public class QANOVA1_View extends Scatterplot_W_CheckBoxes_View {
             if (daValue > xDataMax) { xDataMax = daValue; }
         }
 
-        System.out.println("135 ScatWChex, xDataMin/Max = " + xDataMin + " / " + xDataMax);
         xAxis = new genericClasses.JustAnAxis(xDataMin, xDataMax);
         xAxis.setSide(Side.BOTTOM); 
-        xAxis.setLabel(xAxisLabel);
         
         xAxis.setMinWidth(40);  //  Controls the Min X Axis width (for labels)
         xAxis.setPrefWidth(40);
@@ -176,10 +170,7 @@ public class QANOVA1_View extends Scatterplot_W_CheckBoxes_View {
         initial_yRange = initial_yMax - initial_yMin;
         
         // Make room for the labels
-        
-        // -----------------------------------------------------------------
         initial_yMax += .25 * initial_yRange;
-        // -----------------------------------------------------------------
         
         yAxis = new JustAnAxis(initial_yMin, initial_yMax);
 
@@ -310,111 +301,7 @@ public class QANOVA1_View extends Scatterplot_W_CheckBoxes_View {
         }  
         
         checkBoxRow.getChildren().addAll(qanova1_CheckBoxes);
-    }
-
-/*    
-    public void setHandlers() {
-        // yAxis.setOnMouseClicked(yAxisMouseHandler); 
-        yAxis.setOnMouseDragged(yAxisMouseHandler); 
-        // yAxis.setOnMouseEntered(yAxisMouseHandler); 
-        // yAxis.setOnMouseExited(yAxisMouseHandler); 
-        // yAxis.setOnMouseMoved(yAxisMouseHandler); 
-        yAxis.setOnMousePressed(yAxisMouseHandler); 
-        yAxis.setOnMouseReleased(yAxisMouseHandler);
-        
-        dragableAnchorPane.setOnMouseReleased(anovaplotMouseHandler);
-    }
-    
-     EventHandler<MouseEvent> yAxisMouseHandler = new EventHandler<MouseEvent>() {
-        public void handle(MouseEvent mouseEvent) 
-        {
-            if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED) 
-            { 
-                yPix_InitialPress = mouseEvent.getY(); 
-                yPix_MostRecentDragPoint = mouseEvent.getY();
-                dragging = false;
-            }
-            else 
-            if(mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED)
-            {
-                if (dragging == true)
-                {
-                    yAxis.setLowerBound(newY_Lower ); 
-                    yAxis.setUpperBound(newY_Upper );
-                    dragging = false;
-                }
-            }
-            else 
-            if(mouseEvent.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                dragging = true;
-                double yPix_Dragging = mouseEvent.getY();  
-
-                newY_Lower = yAxis.getLowerBound();
-                newY_Upper = yAxis.getUpperBound(); 
- 
-                dispLowerBound = yAxis.getDisplayPosition(yAxis.getLowerBound());
-                dispUpperBound = yAxis.getDisplayPosition(yAxis.getUpperBound());
-
-                double frac = mouseEvent.getY() / dispLowerBound;
-
-                if((yPix_Dragging > yPix_InitialPress) && (yPix_Dragging > yPix_MostRecentDragPoint))
-                {    
-                    if (frac < 0.5) 
-                    {
-                        if (!yAxisHasForcedHighEnd)
-                            newY_Upper = yAxis.getUpperBound() + deltaY;
-                    }
-                    else  
-                    {
-                        if (!yAxisHasForcedLowEnd)
-                            newY_Lower = yAxis.getLowerBound() + deltaY;
-                    }
-                }
-                else 
-                if ((yPix_Dragging < yPix_InitialPress) && (yPix_Dragging < yPix_MostRecentDragPoint))
-                {   
-                    if (frac < 0.5)
-                    {
-                        if (!yAxisHasForcedHighEnd)
-                            newY_Upper = yAxis.getUpperBound() - deltaY;
-                    }
-                    else
-                    {
-                        if (!yAxisHasForcedLowEnd)
-                            newY_Lower = yAxis.getLowerBound() - deltaY;
-                    }
-                }    
-
-                if (yAxisHasForcedLowEnd) {
-                    newY_Lower = yAxisForcedLowEnd;                   
-                }
-            
-                if (yAxis.getHasForcedHighScaleEnd()) {
-                    newY_Upper = yAxisForcedHighEnd;                    
-                }
-                
-                yAxis.setLowerBound(newY_Lower ); 
-                yAxis.setUpperBound(newY_Upper ); 
-
-                dispLowerBound = yAxis.getDisplayPosition(yAxis.getLowerBound());
-                dispUpperBound = yAxis.getDisplayPosition(yAxis.getUpperBound());
-                
-                yPix_MostRecentDragPoint = mouseEvent.getY();
-                
-                doTheGraph();
-            }
-        }
-    };   
-     
-    EventHandler<MouseEvent> anovaplotMouseHandler = new EventHandler<MouseEvent>() 
-    {
-        @Override
-        public void handle(MouseEvent mouseEvent) 
-        {
-
-        }
-    }; 
-  */   
+    } 
     public Pane getTheContainingPane() { return qanova1_ContainingPane; }
     
 }

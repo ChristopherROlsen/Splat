@@ -1,13 +1,13 @@
 /**************************************************
  *                ANOVA1_Dashboard                *
- *                    12/01/18                    *
- *                     12:00                      *
+ *                    12/27/18                    *
+ *                     15:00                      *
  *************************************************/
 package ANOVA_One;
 
-import genericClasses.Dashboard;
+import superClasses.Dashboard;
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -19,30 +19,31 @@ import proceduresOneUnivariate.*;
 
 public class ANOVA1_Dashboard extends Dashboard {
     // POJOs
-    final String[] anova1CheckBoxDescr = { " FDist \n (Inference)",  "Box Plot ",
+    private String explanatoryVariable, responseVariable;
+    private final String[] anova1CheckBoxDescr = { " FDist \n (Inference)",  "Box Plot ",
                                            " Circle Plot ",
                                          " Mean and Error Bars ", " Post Hoc ", 
                                          " Print Stats "};
 
     // My classes
-    DragableAnchorPane fPDFPlotDRAnchorPane, boxPlotDRAnchorPane, 
+    private DragableAnchorPane fPDFPlotDRAnchorPane, boxPlotDRAnchorPane, 
                        circlePlotDRAnchorPane, postHocDRAnchorPane,
                        meanAndBarsDRAnchorPane, printReportDRAnchorPane;   
 
-    ANOVA1_Model anova1Model;
-    ANOVA1_Procedure anova1_procedure; 
-    ArrayList<QuantitativeDataVariable> allTheQDVs;
-    FDistPDFView fPDFView;
+    private ANOVA1_Model anova1Model;
+    private ANOVA1_Procedure anova1_procedure; 
+    private ArrayList<QuantitativeDataVariable> allTheQDVs;
+    private FDistPDFView fPDFView;
     // ANOVA1_BoxPlotView boxPlotView; 
-    VerticalBoxPlot_View boxPlotView;
-    ANOVA1_CirclePlotView circlePlotView;
-    ANOVA1_PostHocView postHocView; 
-    ANOVA1_MeanAndErrorView meanAndBarsView; 
-    ANOVA1_PrintReportView printReportView;
-    VerticalBoxPlot_Model boxPlotModel;
+    private VerticalBoxPlot_View boxPlotView;
+    private ANOVA1_CirclePlotView circlePlotView;
+    private ANOVA1_PostHocView postHocView; 
+    private ANOVA1_MeanAndErrorView meanAndBarsView; 
+    private ANOVA1_PrintReportView printReportView;
+    private VerticalBoxPlot_Model boxPlotModel;
     // POJOs / FX
-    CheckBox[] anova1CheckBoxes;
-    Text txtTitle;
+    private CheckBox[] anova1CheckBoxes;
+    private Text txtTitle;
 
     Pane fPDFPlotContainingPane, boxPlotContainingPane, 
          circlePlotContainingPane, meanAndBarsContainingPane, 
@@ -52,9 +53,11 @@ public class ANOVA1_Dashboard extends Dashboard {
     Screen primaryANOVA1Screen;
     Stage anova1DashboardStage;
             
-    public ANOVA1_Dashboard(ANOVA1_Procedure anova1_procedure, ANOVA1_Model anova1Model) {
+    public ANOVA1_Dashboard(ANOVA1_Categorical_Procedure anova1_procedure, ANOVA1_Model anova1Model) {
         super(6);
         txtTitle = new Text("Title This is a basic garden variety title");
+        explanatoryVariable = anova1_procedure.getExplanatoryVariable();
+        responseVariable = anova1_procedure.getResponseVariable();
         checkBoxDescr = new String[nCheckBoxes];
         for (int ithCheckBox = 0; ithCheckBox < nCheckBoxes; ithCheckBox++) {
             checkBoxDescr[ithCheckBox] = anova1CheckBoxDescr[ithCheckBox];
@@ -127,7 +130,7 @@ public class ANOVA1_Dashboard extends Dashboard {
         // boxPlotView = new ANOVA1_BoxPlotView(anova1Model, this, sixteenths_across[1], sixteenths_down[1], initWidth[1], initHeight[1]);
         allTheQDVs = new ArrayList<>();
         allTheQDVs = anova1Model.getAllQDVs();
-        boxPlotModel = new VerticalBoxPlot_Model(allTheQDVs);
+        boxPlotModel = new VerticalBoxPlot_Model(anova1Model, allTheQDVs);
         boxPlotView = new VerticalBoxPlot_View(boxPlotModel, this, sixteenths_across[1], sixteenths_down[1], initWidth[1], initHeight[1]);
         boxPlotView.completeTheDeal();
         boxPlotContainingPane = boxPlotView.getTheContainingPane(); 
@@ -156,5 +159,12 @@ public class ANOVA1_Dashboard extends Dashboard {
                                         meanAndBarsContainingPane,
                                         postHocContainingPane,
                                         printReportContainingPane);  
+    }
+    
+    public String getExplanVar() { return explanatoryVariable; }
+    public String getResponseVar() { return responseVariable; }
+    public String getSubTitle() { 
+        String subTitle = responseVariable + " vs. " + explanatoryVariable; 
+        return subTitle;
     }
 }

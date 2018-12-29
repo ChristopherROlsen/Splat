@@ -1,7 +1,7 @@
 /**************************************************
  *                  QANOVA1_Model                  *
- *                    12/18/18                    *
- *                      09:00                     *
+ *                    12/27/18                    *
+ *                      15:00                     *
  *************************************************/
 
 /**************************************************
@@ -11,10 +11,10 @@
 
 package ANOVA_One;
 
-import genericClasses.StringUtilities;
-import genericClasses.StudentizedRangeQ;
-import genericClasses.DataUtilities;
-import genericClasses.QuantitativeDataVariable;
+import utilityClasses.StringUtilities;
+import probabilityDistributions.StudentizedRangeQ;
+import utilityClasses.DataUtilities;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,24 +24,24 @@ import probabilityDistributions.TDistribution;
 
 public class QANOVA1_Model {
     // POJOs
-    boolean lowEndYScaleIsFixed, highEndYScaleIsFixed, sampleSizesAreEqual;
+    private boolean lowEndYScaleIsFixed, highEndYScaleIsFixed, sampleSizesAreEqual;
     
-    int nDataPairs, nExplanatory, nResponse, nLevels, dfLevels, dfError, 
+    private int nDataPairs, nExplanatory, nResponse, nLevels, dfLevels, dfError, 
         dfTotal, totalN;
     
-    double lowEndYScaleFixedAt, highEndYScaleFixedAt, minHorizontal, 
+    private double lowEndYScaleFixedAt, highEndYScaleFixedAt, minHorizontal, 
            maxHorizontal, minVertical, maxVertical, ssTreatments, ssError, 
            ssTotal, msTreatments, msError, fStat, pValue, confidenceLevel,
            lowCI_TK, highCI_TK, lowCI_HSD, highCI_HSD, qCritPlusMinus;
     
-    String explanatoryVariable, responseVariable, sourceString, displayChoice, 
-           strIthLevel, strJthLevel;
+    private String explanatoryVariable, responseVariable, subTitle, 
+            sourceString, displayChoice, strIthLevel, strJthLevel;
     
-    ArrayList<String> anova1Report, postHocReport, alStr_AllTheLabels;
-    ObservableList<String> categoryLabels;
+    private ArrayList<String> anova1Report, postHocReport, alStr_AllTheLabels;
+    private ObservableList<String> categoryLabels;
 
     // My classes
-    ANOVA1_Procedure anova1_procedure;   //  Need to rename these 
+    QANOVA1_Quant_Procedure qanova1_procedure;   //  Need to rename these 
     ArrayList<QuantitativeDataVariable> allTheQDVs;
     QuantitativeDataVariable tempQDV;   
     QuantitativeDataVariable allData_QDV;
@@ -49,7 +49,7 @@ public class QANOVA1_Model {
     TDistribution tDistribution;
     FDistribution fDist;
 
-    public QANOVA1_Model (ANOVA1_Procedure anovaProc, 
+    public QANOVA1_Model (QANOVA1_Quant_Procedure anovaProc, 
                                  String explanatoryVariable, 
                                  String responseVariable,
                                  ArrayList<QuantitativeDataVariable>  al_AllTheQDVs,
@@ -66,6 +66,7 @@ public class QANOVA1_Model {
         DataUtilities dataUtil = new DataUtilities();
         this.explanatoryVariable = explanatoryVariable;
         this.responseVariable = responseVariable;
+        subTitle = responseVariable + " vs. " + explanatoryVariable;
         this.allTheQDVs = new ArrayList();
         this.allTheQDVs = al_AllTheQDVs;
         
@@ -378,6 +379,7 @@ private void doHonestlySigDiff() {
     
     public String getExplanatoryVariable() {return explanatoryVariable; }
     public String getResponseVariable() {return responseVariable; }
+    public String getSubTitle() { return subTitle; }
     
     public ArrayList<QuantitativeDataVariable> getAllQDVs() { return allTheQDVs; }
     

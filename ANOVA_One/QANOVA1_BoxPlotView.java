@@ -5,8 +5,8 @@
  *************************************************/
 package ANOVA_One;
 
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -132,7 +132,8 @@ public class QANOVA1_BoxPlotView extends QANOVA1_View {
             fiveNumberSummary = new double[5];
             fiveNumberSummary = tempUCDO.get_5NumberSummary();
             whiskerEndRanks = tempUCDO.getWhiskerEndRanks();
-
+            double theMean = tempUCDO.getTheMean();
+            double theStDev = tempUCDO.getTheStandDev();
             bottomOfLowWhisker = yAxis.getDisplayPosition(fiveNumberSummary[0]);
  
             if (whiskerEndRanks[0] != -1)
@@ -148,6 +149,11 @@ public class QANOVA1_BoxPlotView extends QANOVA1_View {
             double q2_display = yAxis.getDisplayPosition(fiveNumberSummary[2]);
             double q3_display = yAxis.getDisplayPosition(fiveNumberSummary[3]);
             double max_display = yAxis.getDisplayPosition(fiveNumberSummary[4]);
+            
+            double mean_display = yAxis.getDisplayPosition(theMean);
+            double upperStDev_display = yAxis.getDisplayPosition(theMean + theStDev);
+            double lowerStDev_display = yAxis.getDisplayPosition(theMean - theStDev);
+            
             double iqr_display = q3_display - q1_display;
             double iqr = fiveNumberSummary[3] - fiveNumberSummary[1];
             
@@ -163,6 +169,19 @@ public class QANOVA1_BoxPlotView extends QANOVA1_View {
 
             gcQANOVA1.strokeLine(daXPosition, bottomOfLowWhisker, daXPosition, q1_display);  //  Low whisker
             gcQANOVA1.strokeLine(daXPosition, q3_display, daXPosition, topOfHighWhisker);  //  High whisker
+            
+            // means & stDev diamond
+            
+            if (qanova1_CheckBoxes[0].isSelected() == true){
+                gcQANOVA1.setLineWidth(1);
+                gcQANOVA1.setStroke(Color.RED);
+                gcQANOVA1.strokeLine(daXPosition - spaceFraction, mean_display, daXPosition, upperStDev_display);  
+                gcQANOVA1.strokeLine(daXPosition - spaceFraction, mean_display, daXPosition, lowerStDev_display);
+                gcQANOVA1.strokeLine(daXPosition + spaceFraction, mean_display, daXPosition, upperStDev_display);  
+                gcQANOVA1.strokeLine(daXPosition + spaceFraction, mean_display, daXPosition, lowerStDev_display);
+                gcQANOVA1.setLineWidth(2);
+                gcQANOVA1.setStroke(Color.BLACK);
+            }
 
             // Low outliers
             if (whiskerEndRanks[0] != -1)    //  Are there low outliers?
@@ -171,8 +190,22 @@ public class QANOVA1_BoxPlotView extends QANOVA1_View {
                 while (dataPoint < whiskerEndRanks[0])
                 {
                     double xx = daXPosition;
-                    double yy = yAxis.getDisplayPosition(tempUCDO.getIthSortedValue(dataPoint));
-                    gcQANOVA1.fillOval(xx - 3, yy - 3, 6, 6);
+                    double tempY = tempUCDO.getIthSortedValue(dataPoint);
+                    double yy = yAxis.getDisplayPosition(tempY);
+                    
+                    
+                    // Extreme outlier
+                    double tempLowBall = fiveNumberSummary[1] - 1.5 * iqr;
+                    double tempHighBall = fiveNumberSummary[3] + 1.5 * iqr; 
+                    
+                    if ((tempY < tempLowBall) && (qanova1_CheckBoxes[1].isSelected() == true)) {
+                    // if (tempY < tempLowBall) {
+                        gcQANOVA1.strokeOval(xx - 6, yy - 6, 12, 12);
+                    }
+                    else {
+                        gcQANOVA1.fillOval(xx - 3, yy - 3, 6, 6);
+                    }
+                    
                     dataPoint++;
                 }
             }
@@ -183,8 +216,16 @@ public class QANOVA1_BoxPlotView extends QANOVA1_View {
                 for (int dataPoint = whiskerEndRanks[1] + 1; dataPoint < nDataPoints; dataPoint++)
                 {
                     double xx = daXPosition;
-                    double yy = yAxis.getDisplayPosition(tempUCDO.getIthSortedValue(dataPoint));
-                    gcQANOVA1.fillOval(xx - 3, yy - 3, 6, 6);
+                    double tempY = tempUCDO.getIthSortedValue(dataPoint);
+                    double yy = yAxis.getDisplayPosition(tempY);
+                    
+                    double tempHighBall = fiveNumberSummary[3] + 1.5 * iqr; 
+                    if ((tempY > tempHighBall) && (qanova1_CheckBoxes[1].isSelected() == true)){
+                        gcQANOVA1.strokeOval(xx - 6, yy - 6, 12, 12);
+                    }
+                    else {
+                        gcQANOVA1.fillOval(xx - 3, yy - 3, 6, 6);   
+                    }
                 }
             }  
         }   //  Loop through batches

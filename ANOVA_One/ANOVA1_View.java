@@ -1,14 +1,14 @@
 /**************************************************
  *                  ANOVA1_View                   *
- *                    06/13/18                    *
- *                      21:00                     *
+ *                    12/24/18                    *
+ *                      06:00                     *
  *************************************************/
 package ANOVA_One;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.UnivariateContinDataObj;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,6 +44,7 @@ public class ANOVA1_View extends Region {
     double[] means, stDevs;
     
     String whichView;
+    String explanVar, responseVar;
     String[] strCheckBoxDescriptions;
     
     ObservableList<String> allTheLabels, categoryLabels;
@@ -102,7 +103,7 @@ public class ANOVA1_View extends Region {
         double tempUpDown;
         allTheQDVs = anova1_Model.getAllTheQDVs();
     
-        nVariables = allTheQDVs.size() - 1;   //  Excluding 0
+        nVariables = allTheQDVs.size() - 1;   //  Excluding 0 ("All")
         means = new double[nVariables];
         stDevs = new double[nVariables];
         allTheUCDOs = new ArrayList<>();
@@ -125,7 +126,7 @@ public class ANOVA1_View extends Region {
         xAxis = new CategoryAxis(categoryLabels);
         xAxis.setSide(Side.BOTTOM);
         xAxis.setAutoRanging(true);
-        xAxis.setLabel(anova1_Model.getExplanatoryVariable());
+        // xAxis.setLabel(anova1_Model.getExplanatoryVariable());
         
         xAxis.setMinWidth(40);  //  Controls the Min X Axis width (for labels)
         xAxis.setPrefWidth(40);
@@ -179,7 +180,7 @@ public class ANOVA1_View extends Region {
         yAxis.setPrefSize(20, anchorPane.getHeight() - 50);
         yAxis.setLayoutX(500); yAxis.setLayoutY(50);
         
-        yAxis.setLabel(anova1_Model.getResponseVariable());        
+        // yAxis.setLabel(anova1_Model.getResponseVariable());        
         yMin = initial_yMin - .05 * initial_yRange;
         yMax = initial_yMax + .05 * initial_yRange;
         yRange = initial_yRange;    

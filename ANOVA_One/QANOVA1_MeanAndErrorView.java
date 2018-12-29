@@ -7,8 +7,8 @@
 package ANOVA_One;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
 import javafx.collections.FXCollections;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.RadioButton;

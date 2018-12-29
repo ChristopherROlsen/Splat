@@ -1,12 +1,12 @@
 /**************************************************
  *             ANOVA1_CirclePlotView              *
- *                    05/23/18                    *
- *                      12:00                     *
+ *                    12/27/18                    *
+ *                      15:00                     *
  *************************************************/
 package ANOVA_One;
 
-import genericClasses.UnivariateContinDataObj;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -15,12 +15,12 @@ import javafx.scene.text.Text;
 
 public class ANOVA1_CirclePlotView extends ANOVA1_View { 
     // POJOs
-    double theMean;
-    String[] strCBDescriptions = {" Best Fit Line ", 
-                                               " Outliers ", 
-                                               " Influential points "};     
+    private double theMean;
+
+    private String[] strCBDescriptions; 
+    
     // My classes
-    UnivariateContinDataObj tempUCDO;
+    private UnivariateContinDataObj tempUCDO;
     
     ANOVA1_CirclePlotView(ANOVA1_Model anova1Model, ANOVA1_Dashboard anova1Dashboard, 
                          double placeHoriz, double placeVert, 
@@ -40,14 +40,15 @@ public class ANOVA1_CirclePlotView extends ANOVA1_View {
         this.anova1Dashboard = anova1Dashboard;
         allTheLabels = anova1Model.getCategoryLabels();
         gcANOVA1 = anova1Canvas.getGraphicsContext2D();  
-        txtTitle1 = new Text(50, 25, " Circle Plot View ");
-        txtTitle2 = new Text (60, 45, " Circle Plot View ");
+        explanVar = anova1Dashboard.getExplanVar();
+        responseVar = anova1Dashboard.getResponseVar();
+        String strForTitle2 = responseVar + " vs. " + explanVar;
+        txtTitle2 = new Text (60, 45, strForTitle2);
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }
    
-    public void doTheGraph() {
-        //System.out.println("87 crc, doTheGraph()");    
+    public void doTheGraph() {   
         yAxis.setForcedAxisEndsFalse(); // Just in case
         double text1Width = txtTitle1.getLayoutBounds().getWidth();
         double text2Width = txtTitle2.getLayoutBounds().getWidth();

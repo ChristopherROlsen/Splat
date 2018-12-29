@@ -1,7 +1,7 @@
 /**************************************************
  *                   LevenesTest                  *
- *                    12/18/18                    *
- *                      09:00                     *
+ *                    12/27/18                    *
+ *                      15:00                     *
  *************************************************/
 
 // ***********************************************************************
@@ -10,18 +10,18 @@
 
 package ANOVA_One;
 
-import genericClasses.*;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import probabilityDistributions.*;
 
 public class LevenesTest {
     
-    int nGroups, totalN;
-    int[] legalN;
-    double grandSumZIJ, grandMeanZIJ, levenes_W, sumYIJ, pValue, alphaInv;
-    double[] groupMean, groupZMean, groupMedian, trimmedMean;
-    double[] zBarI;
-    double[][] yIJ, zIJ;
+    private int nGroups, totalN;
+    private int[] legalN;
+    private double grandSumZIJ, grandMeanZIJ, levenes_W, sumYIJ, pValue, alphaInv;
+    private double[] groupMean, groupZMean, groupMedian, trimmedMean;
+    private double[] zBarI;
+    private double[][] yIJ, zIJ;
     
 ArrayList<QuantitativeDataVariable> allTheQDVs;    
 
@@ -53,7 +53,6 @@ ArrayList<QuantitativeDataVariable> allTheQDVs;
         zIJ = new double[nGroups + 1][largestGroupSize];
         
         for (int ithGroup = 1; ithGroup <= nGroups; ithGroup++) {
-            System.out.println("Legal N this group = " + legalN[ithGroup]);
             for(int jthElement = 0; jthElement < legalN[ithGroup]; jthElement++) {
                 yIJ[ithGroup][jthElement] = allTheQDVs.get(ithGroup)
                                                       .getIthDataPtAsDouble(jthElement);
