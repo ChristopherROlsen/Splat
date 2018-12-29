@@ -14,8 +14,8 @@
 package proceduresTwoUnivariate;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.Scatterplot_View;
+import dataObjects.QuantitativeDataVariable;
+import superClasses.Scatterplot_View;
 import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -41,10 +41,10 @@ public class QQPlot_View extends Scatterplot_View
     
     int nOneDataPoints, nTwoDataPoints, nCheckBoxes, smallerN, largerN;
     
-    String dataOneLabel, dataTwoLabel;
+    String dataOneLabel, dataTwoLabel, strTitle2Text;
     
-    Canvas graphCanvas;
-    GraphicsContext gc; // Required for drawing on the Canvas
+    //Canvas graphCanvas;
+    //GraphicsContext gc; // Required for drawing on the Canvas
 
     double[] dataArrayOne, dataArrayTwo, quantSmall, quantLarge, xSmaller, 
              xLarger, slope, intercept,  tempLarger;
@@ -76,6 +76,7 @@ public class QQPlot_View extends Scatterplot_View
         graphCanvas = new Canvas(initWidth, initHeight); 
         gc = graphCanvas.getGraphicsContext2D();
         this.qqPlot_Model = qqPlot_Model;
+        strTitle2Text = qqPlot_Model.getTheGraphTitle();
         this.compare2Ind_Dashboard = compare2Ind_Dashboard;
         allTheQDVs = new ArrayList<>();
         allTheQDVs = qqPlot_Model.getAllTheUDMs();
@@ -135,21 +136,15 @@ public class QQPlot_View extends Scatterplot_View
         makeTheCheckBoxes();    
         makeItHappen(); 
         
-    if (nOneDataPoints == nTwoDataPoints) {
-        //System.out.println("qq plot, 109 -- doEqualSizeProcedure()");
-        doEqualSizeProcedure(); 
-    } else {
-        //System.out.println("qq plot, 113 -- doUnEqualSizeProcedure()");
-        doUnEqualSizeProcedure(); 
-    }
+        if (nOneDataPoints == nTwoDataPoints) {
+            //System.out.println("qq plot, 109 -- doEqualSizeProcedure()");
+            doEqualSizeProcedure(); 
+        } else {
+            //System.out.println("qq plot, 113 -- doUnEqualSizeProcedure()");
+            doUnEqualSizeProcedure(); 
+        }
 
-    
-// -------------------------------------------------------------------------
-        
-        
-        String graphsCSS = getClass().getResource("/css/Graphs.css").toExternalForm();
-        
-        
+        String graphsCSS = getClass().getResource("/css/Graphs.css").toExternalForm();  
     }
     
     private void doEqualSizeProcedure() {
@@ -266,8 +261,8 @@ public class QQPlot_View extends Scatterplot_View
 
     public void setUpUI() {
         String title2String;
-        title1Text = new Text(50, 25, " QQ Plot ");
-        title2Text = new Text (60, 45, " QQ Plot ");
+        title1Text = new Text(50, 25, " QQ Plot "); 
+        title2Text = new Text (60, 45, strTitle2Text);
         title1Text.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         title2Text.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }

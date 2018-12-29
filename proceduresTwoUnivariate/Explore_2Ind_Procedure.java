@@ -1,30 +1,31 @@
 /************************************************************
  *                   Explore2Ind__Procedure                 *
- *                          11/10/18                        *
- *                            03:00                         *
+ *                          12/28/18                        *
+ *                            21:00                         *
  ***********************************************************/
 package proceduresTwoUnivariate;
 
 import dialogs.*;
-import genericClasses.ColumnOfData;
+import dataObjects.ColumnOfData;
 import java.util.ArrayList;
-import genericClasses.QuantitativeDataVariable;
-import splat.Splat_DataManager;
+import dataObjects.QuantitativeDataVariable;
+import splat.Data_Manager;
+import utilityClasses.*;
 
 public class Explore_2Ind_Procedure {
     // POJOs
-    String returnStatus;
-    ArrayList<String> firstDataStrings, secondDataStrings;
+    private String returnStatus, firstVariable, subTitle;
+    private ArrayList<String> firstDataStrings, secondDataStrings;
     
     // My classes
-    Explore_2Ind_PrepareStructs explore_2Ind_prepStructs;
-    QuantitativeDataVariable qdv_FirstVariable, qdv_SecondVariable;
-    ArrayList<QuantitativeDataVariable> allTheQDVs;
-    Splat_DataManager dm;
+    private Explore_2Ind_PrepareStructs explore_2Ind_prepStructs;
+    private QuantitativeDataVariable qdv_FirstVariable, qdv_SecondVariable;
+    private ArrayList<QuantitativeDataVariable> allTheQDVs;
+    private Data_Manager dm;
     
     // POJOs / FX
     
-    public Explore_2Ind_Procedure(Splat_DataManager dm) {
+    public Explore_2Ind_Procedure(Data_Manager dm) {
         this.dm = dm;
     }  
         
@@ -35,7 +36,8 @@ public class Explore_2Ind_Procedure {
             if (!returnStatus.equals("Ok")) {
                 return returnStatus;
             }
-
+            firstVariable = twoIndDialog.getResponseVar();
+            subTitle = twoIndDialog.getSubTitle();
             ArrayList<ColumnOfData> data = twoIndDialog.getData();
 
             qdv_FirstVariable = new QuantitativeDataVariable(data.get(0));
@@ -57,23 +59,17 @@ public class Explore_2Ind_Procedure {
             allTheQDVs.add(qdv_FirstVariable);
             allTheQDVs.add(qdv_SecondVariable);
             
-            explore_2Ind_prepStructs = new Explore_2Ind_PrepareStructs(dm, allTheQDVs);
+            explore_2Ind_prepStructs = new Explore_2Ind_PrepareStructs(this, dm, allTheQDVs);
             returnStatus = explore_2Ind_prepStructs.showTheDashboard();
             return returnStatus;
         }
         catch (Exception ex) {
-            ex.printStackTrace();  // Constructs stack trace?
-            System.out.println("\n" + ex.getMessage());
-            System.out.println("\n" + ex.toString());
-            System.out.println("\nTrace Info Obtained from getStatckTrace");
-            StackTraceElement[] traceElements = ex.getStackTrace();
-            for (int i = 0; i < traceElements.length; i++) {
-                System.out.print("method " + traceElements[i].getMethodName());
-                System.out.print("(" + traceElements[i].getClassName() + ":");
-                System.out.print(traceElements[i].getLineNumber() + ")");
-            }             
+            PrintExceptionInfo pei = new PrintExceptionInfo(ex, "Explore 2Ind Dialog");
         }
      
         return returnStatus;
     }
+    
+    public String getSubTitle() { return subTitle; }
+    public String getFirstVariable() { return firstVariable; }
 }

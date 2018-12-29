@@ -1,19 +1,20 @@
 /**************************************************
  *                   BBSL_Model                   *
- *                    05/16/18                    *
+ *                    12/25/18                    *
  *                      18:00                     *
  *************************************************/
 
 package proceduresTwoUnivariate;
 
 import proceduresOneUnivariate.StemNLeaf_Model;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Text;
 import javafx.scene.text.Font;
+import t_Procedures.Indep_t_PrepStructs;
 
 public final class BBSL_Model {
     // POJOs
@@ -24,7 +25,7 @@ public final class BBSL_Model {
     
     double maxValue;
 
-    String blanx, 
+    String blanx, descriptionOfVariable,
            leftDataLabel, rightDataLabel,
            leftLeafString, rightLeafString, 
            tempLeftString, tempRightString;
@@ -45,12 +46,25 @@ public final class BBSL_Model {
     
     BBSL_Model() {}
 
-    public BBSL_Model(ArrayList<QuantitativeDataVariable> allTheQDVs) {
+    public BBSL_Model(Explore_2Ind_PrepareStructs exp_2Ind_Structs, String descriptionOfVariable, ArrayList<QuantitativeDataVariable> allTheQDVs) {
+        this.descriptionOfVariable = descriptionOfVariable;
         bbslAllTheQDVs = new ArrayList<>();
         bbslAllTheQDVs.add(allTheQDVs.get(0));  //  All
         bbslAllTheQDVs.add(allTheQDVs.get(1));  // Left
         bbslAllTheQDVs.add(allTheQDVs.get(2));  // Right
-        
+        makeTheBBSL();
+    }
+    
+    public BBSL_Model(Indep_t_PrepStructs exp_2Ind_Structs, String descriptionOfVariable, ArrayList<QuantitativeDataVariable> allTheQDVs) {
+        this.descriptionOfVariable = descriptionOfVariable;
+        bbslAllTheQDVs = new ArrayList<>();
+        bbslAllTheQDVs.add(allTheQDVs.get(0));  //  All
+        bbslAllTheQDVs.add(allTheQDVs.get(1));  // Left
+        bbslAllTheQDVs.add(allTheQDVs.get(2));  // Right
+        makeTheBBSL();
+    }
+    
+    private void makeTheBBSL() {
         textArea1 = new TextArea();
         textArea1.setFont(Font.font("Courier New"));    
         textArea2 = new TextArea();
@@ -70,20 +84,20 @@ public final class BBSL_Model {
         twoLineBBSL = new ArrayList<>();
         fiveLineBBSL = new ArrayList<>();
         
-        maxValue = (int)allTheQDVs.get(0).getMaxValue();
-        leftDataLabel = allTheQDVs.get(1).getTheDataLabel();
-        rightDataLabel = allTheQDVs.get(2).getTheDataLabel();
+        maxValue = (int)bbslAllTheQDVs.get(0).getMaxValue();
+        leftDataLabel = bbslAllTheQDVs.get(1).getTheDataLabel();
+        rightDataLabel = bbslAllTheQDVs.get(2).getTheDataLabel();
 
-        StemNLeaf_Model sandLAll = new StemNLeaf_Model(allTheQDVs.get(0), false, 0, 0, 0);
+        StemNLeaf_Model sandLAll = new StemNLeaf_Model("Null", bbslAllTheQDVs.get(0), false, 0, 0, 0);
         int orderOfMagnitude = sandLAll.getOrderOfMagnitude();  // for 1|0 in SL
         
         // Needed by left and right to get proper columns;
         bbslFirstNonZeroColumn = sandLAll.getFirstNonZeroColumn();
         bbslFirstNonConstantColumn = sandLAll.getFirstNonConstantColumn();
         
-        StemNLeaf_Model sandLLeft = new StemNLeaf_Model(allTheQDVs.get(1), true, orderOfMagnitude,
+        StemNLeaf_Model sandLLeft = new StemNLeaf_Model("Null", bbslAllTheQDVs.get(1), true, orderOfMagnitude,
                                                         bbslFirstNonZeroColumn, bbslFirstNonConstantColumn);
-        StemNLeaf_Model sandLRight = new StemNLeaf_Model(allTheQDVs.get(2), true, orderOfMagnitude,
+        StemNLeaf_Model sandLRight = new StemNLeaf_Model("Null", bbslAllTheQDVs.get(2), true, orderOfMagnitude,
                                                          bbslFirstNonZeroColumn, bbslFirstNonConstantColumn);
       
         ArrayList<String> theAllOneLiners = new ArrayList();
@@ -290,6 +304,8 @@ public final class BBSL_Model {
     public ArrayList<String> get_1_LineBBSL() { return oneLineBBSL; }
     public ArrayList<String> get_2_LineBBSL() { return twoLineBBSL; }
     public ArrayList<String> get_5_LineBBSL() { return fiveLineBBSL; } 
+    
+    public String getDescriptionOfVariable() { return descriptionOfVariable; }
     
     public int getBBSLFirstNonZeroColumn() { return bbslFirstNonZeroColumn; }
     public int getBBSLFirstNonConstantColumn() { return bbslFirstNonConstantColumn; }

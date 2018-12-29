@@ -5,12 +5,12 @@
  *************************************************/
 package proceduresTwoUnivariate;
 
-import genericClasses.Dashboard;
+import superClasses.Dashboard;
 import proceduresOneUnivariate.HorizontalBoxPlot_View;
 import proceduresOneUnivariate.VerticalBoxPlot_Model;
 import proceduresOneUnivariate.HorizontalBoxPlot_Model;
 import proceduresOneUnivariate.VerticalBoxPlot_View;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import genericClasses.DragableAnchorPane;
 import java.util.ArrayList;
 import javafx.scene.control.CheckBox;

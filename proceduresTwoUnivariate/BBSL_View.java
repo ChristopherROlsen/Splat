@@ -1,12 +1,12 @@
 /****************************************************************************
  *                        BBSL_View                                         * 
- *                         10/26/18                                         *
- *                          21:00                                           *
+ *                         12/25/18                                         *
+ *                          18:00                                           *
  ***************************************************************************/
 package proceduresTwoUnivariate;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import genericClasses.ResizableTextPane;
 import java.util.ArrayList;
 import javafx.event.EventHandler;
@@ -18,7 +18,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -46,7 +46,7 @@ public class BBSL_View {
            strOrdMag, slTitle, leftDataLabel, rightDataLabel, strBBSL,
            strTitleBlanks, strVarNameBlanks, strNSizeBlanks, titleOrdMag, 
            strSubTitleBlanks, strOrdMagBlanks, strBBSLBlanks, strVarName,
-           titleNSize, titleBBSL, strTitleTextBlanks;
+           titleNSize, titleBBSL, strTitleTextBlanks, bbsTitle2;
 
     String bbsl_Title1, bbsl_Title2_1, bbsl_Title2_2, bbsl_Title2_5, 
            bbslTitleLines, preSLTitleText;
@@ -82,7 +82,7 @@ public class BBSL_View {
         
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight;
-        
+        bbsTitle2 = bbsl_Model.getDescriptionOfVariable();
         this.bbsl_Model = bbsl_Model;
         postInit();
     }
@@ -151,7 +151,7 @@ public class BBSL_View {
 
         nTitleText = charsInToVertChar / 2 + 5 - bbsl_Title1.indexOf("k S");
         strTitleTextBlanks = StringUtilities.getStringOfNSpaces(nTitleText);        
-        preSLTitleText = strTitleTextBlanks + bbsl_Title1;
+        preSLTitleText = strTitleTextBlanks + bbsl_Title1 + bbsl_Title1 + bbsTitle2;
         doOneLiners();
         txtArea = txtArea_BBSL_1;
          
@@ -317,6 +317,7 @@ public class BBSL_View {
         // Stem & Leaf proper    
         
         bbslTitleLines = titleBBSL + "\n" +
+                         bbsTitle2 + "\n" +
                          titleVarName + "\n" +
                          titleNSize + "\n" +
                          titleOrdMag;
@@ -370,6 +371,7 @@ public class BBSL_View {
         // Stem & Leaf proper    
         
         bbslTitleLines = titleBBSL + "\n" +
+                         bbsTitle2 + "\n" +
                          titleVarName + "\n" +
                          titleNSize + "\n" +
                          titleOrdMag;
@@ -378,10 +380,7 @@ public class BBSL_View {
         strThisLine = bbslTitleLines;
         txtArea_BBSL_2.appendText(strThisLine);
         thisText = new Text(20, 19 * 0 + 40, strThisLine);        
-        
-        
-        
-        
+
         tempString = twoLineBBSL.get(0);
         charsInToVertChar = tempString.indexOf('|');
         twoLineWidth = 0;
@@ -422,6 +421,7 @@ public class BBSL_View {
         // Stem & Leaf proper    
         
         bbslTitleLines = titleBBSL + "\n" +
+                         bbsTitle2 + "\n" +
                          titleVarName + "\n" +
                          titleNSize + "\n" +
                          titleOrdMag;
@@ -473,6 +473,8 @@ public class BBSL_View {
         titleText = new Text(10, 20, strBBSL);
         titleText.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,16));
         
+        
+        
         leftDataLabel = bbsl_Model.getAllUDMs().get(1).getDataLabel();
         rightDataLabel = bbsl_Model.getAllUDMs().get(2).getDataLabel(); 
 
@@ -483,6 +485,7 @@ public class BBSL_View {
         
         titleLeftNSize = bbsl_Model.getAllUDMs().get(1).getLegalN();
         titleRightNSize = bbsl_Model.getAllUDMs().get(2).getLegalN();
+        System.out.println("488 bbsl strSubTitleBlanks = " + "x" + strSubTitleBlanks + "x");
         strSLNSize = strSubTitleBlanks + "N1 = " + String.valueOf(titleLeftNSize) + "    "
                           + "N2 = " + String.valueOf(titleRightNSize);
         nNSizeBlanks = charsInToVertChar + 4 - strSLNSize.indexOf("N2");

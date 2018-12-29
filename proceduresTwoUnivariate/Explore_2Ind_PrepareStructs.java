@@ -1,35 +1,37 @@
 /**************************************************
  *             Explore_2Ind_PrepareStructs        *
- *                    11/10/18                    *
- *                      03:00                     *
+ *                    12/25/18                    *
+ *                      18:00                     *
  *************************************************/
 package proceduresTwoUnivariate;
 
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 import proceduresOneUnivariate.*;
 
 public class Explore_2Ind_PrepareStructs  
 { 
     // POJOs
     int nUnchecked, nChecked;
-    String returnStatus;
+    String returnStatus, subTitle;
     
     // My classes
     BBSL_Model bbsl_Model;
     private final Explore_2Ind_Dashboard xPlore_2Ind_Dashboard;
     HorizontalBoxPlot_Model hBox_Model;
     QQPlot_Model qqPlot_Model;
-    Splat_DataManager dm;
+    Data_Manager dm;
     ArrayList<QuantitativeDataVariable> theThreeQDVs, allTheQDVs;
     VerticalBoxPlot_Model vBox_Model;
 
-    public Explore_2Ind_PrepareStructs(Splat_DataManager dm, ArrayList<QuantitativeDataVariable> allTheQDVs) { 
-        hBox_Model = new HorizontalBoxPlot_Model(allTheQDVs);
-        vBox_Model = new VerticalBoxPlot_Model(allTheQDVs);
-        qqPlot_Model = new QQPlot_Model(allTheQDVs);
-        bbsl_Model = new BBSL_Model(allTheQDVs);
+    public Explore_2Ind_PrepareStructs(Explore_2Ind_Procedure ex2Proc, Data_Manager dm, ArrayList<QuantitativeDataVariable> allTheQDVs) { 
+        subTitle = ex2Proc.getSubTitle();
+        hBox_Model = new HorizontalBoxPlot_Model(this, subTitle, allTheQDVs);
+        vBox_Model = new VerticalBoxPlot_Model(this, subTitle, allTheQDVs);
+        qqPlot_Model = new QQPlot_Model(this, subTitle, allTheQDVs);
+        bbsl_Model = new BBSL_Model(this, subTitle, allTheQDVs);
+
         xPlore_2Ind_Dashboard = new Explore_2Ind_Dashboard(this, allTheQDVs);
     }  
     
@@ -45,6 +47,8 @@ public class Explore_2Ind_PrepareStructs
     VerticalBoxPlot_Model getVBox_Model() { return vBox_Model; }
     QQPlot_Model getQQ_Model() { return qqPlot_Model; }
     BBSL_Model getBBSL_Model() { return bbsl_Model; }  
+    
+    public String getSubTitle() { return subTitle; }
     
     public String getReturnStatus() { return returnStatus; }
 }
