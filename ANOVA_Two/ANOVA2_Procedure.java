@@ -5,8 +5,8 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.CategoricalDataVariable;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.CategoricalDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import dialogs.TwoFactor_Dialog;
 import java.util.ArrayList;
 import splat.*;
@@ -26,7 +26,7 @@ public class ANOVA2_Procedure {
     RCB_Dashboard rcb_Dashboard;
     RCB_Model rcb_Model;
             
-    public ANOVA2_Procedure (Splat_DataManager dm, String whichANOVA2) {
+    public ANOVA2_Procedure (Data_Manager dm, String whichANOVA2) {
         this.whichANOVA2 = whichANOVA2;
         TwoFactor_Dialog dialog_TwoFactor = new TwoFactor_Dialog(dm, whichANOVA2);
         dialog_TwoFactor.Step0();

@@ -5,7 +5,7 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.Dashboard;
+import superClasses.Dashboard;
 import genericClasses.DragableAnchorPane;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;

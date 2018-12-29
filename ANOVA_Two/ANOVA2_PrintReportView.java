@@ -6,7 +6,7 @@
 package ANOVA_Two;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import java.util.ArrayList;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;

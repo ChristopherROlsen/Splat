@@ -6,13 +6,13 @@
 
 package ANOVA_Two;
 
-import genericClasses.StringUtilities;
-import genericClasses.CategoricalDataVariable;
-import genericClasses.StudentizedRangeQ;
-import genericClasses.CatQuantPair;
+import utilityClasses.StringUtilities;
+import dataObjects.CategoricalDataVariable;
+import probabilityDistributions.StudentizedRangeQ;
+import dataObjects.CatQuantPair;
 import genericClasses.ANOVA_Level;
-import genericClasses.UnivariateContinDataObj;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,9 +53,9 @@ public class ANOVA2_Model {
     QuantitativeDataVariable allData;
     QuantitativeDataVariable qdv_Responses;
     StudentizedRangeQ studRangeQ;
-    Splat_DataManager dm;
+    Data_Manager dm;
     
-    public ANOVA2_Model(Splat_DataManager dm,
+    public ANOVA2_Model(Data_Manager dm,
                         ANOVA2_Procedure anova2_Platform,
                         CategoricalDataVariable catDV_FactorA, 
                         CategoricalDataVariable catDV_FactorB,

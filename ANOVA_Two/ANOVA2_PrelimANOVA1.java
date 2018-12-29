@@ -6,13 +6,13 @@
 
 package ANOVA_Two;
 
-import genericClasses.CatQuantDataVariable;
-import genericClasses.CategoricalDataVariable;
-import genericClasses.StudentizedRangeQ;
-import genericClasses.DataUtilities;
-import genericClasses.ColumnOfData;
-import genericClasses.UnivariateContinDataObj;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.CatQuantDataVariable;
+import dataObjects.CategoricalDataVariable;
+import probabilityDistributions.StudentizedRangeQ;
+import utilityClasses.DataUtilities;
+import dataObjects.ColumnOfData;
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,9 +44,9 @@ public class ANOVA2_PrelimANOVA1 {
     TDistribution tDistribution; 
     UnivariateContinDataObj tempUCDO, allData_UCDO;
     UnivariateContinDataObj[] allTheUCDOs;
-    Splat_DataManager dm;
+    Data_Manager dm;
 
-    public ANOVA2_PrelimANOVA1 (Splat_DataManager dm, CategoricalDataVariable explanatoryVar, QuantitativeDataVariable responseVar) {
+    public ANOVA2_PrelimANOVA1 (Data_Manager dm, CategoricalDataVariable explanatoryVar, QuantitativeDataVariable responseVar) {
         this.dm = dm;
         ColumnOfData colExplanVar = new ColumnOfData(explanatoryVar);    
         ColumnOfData colResponseVar = new ColumnOfData(responseVar);

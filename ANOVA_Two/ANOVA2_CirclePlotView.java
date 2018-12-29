@@ -5,7 +5,7 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.UnivariateContinDataObj;
 import javafx.scene.layout.AnchorPane;
 
 public class ANOVA2_CirclePlotView extends ANOVA2_BoxCircleInterActView { 

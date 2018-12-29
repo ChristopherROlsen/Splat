@@ -5,13 +5,13 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.StringUtilities;
-import genericClasses.CategoricalDataVariable;
-import genericClasses.StudentizedRangeQ;
-import genericClasses.CatQuantPair;
+import utilityClasses.StringUtilities;
+import dataObjects.CategoricalDataVariable;
+import probabilityDistributions.StudentizedRangeQ;
+import dataObjects.CatQuantPair;
 import genericClasses.ANOVA_Level;
-import genericClasses.UnivariateContinDataObj;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -59,14 +59,14 @@ public class RCB_Model {
     
     ANOVA2_MainEffect_AView mainEffectBlocks;
     ANOVA2_MainEffect_BView mainEffectTreats;
-    Splat_DataManager dm;
+    Data_Manager dm;
     ANOVA2_Procedure rcb_Procedure;    
     QuantitativeDataVariable allData;
     QuantitativeDataVariable qdv_Responses;
     CategoricalDataVariable blockCatVar, treatCatVar, factor_AB_CatDataVar;
     ANOVA2_PrelimANOVA1 prelimBlocks, prelimTreats, prelimAB;
        
-    public RCB_Model( Splat_DataManager dm,
+    public RCB_Model( Data_Manager dm,
                         ANOVA2_Procedure rcbPlatform,
                             CategoricalDataVariable blockValues, 
                             CategoricalDataVariable treatValues,

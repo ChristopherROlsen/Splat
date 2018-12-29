@@ -5,9 +5,9 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.StringUtilities;
-import genericClasses.CategoricalDataVariable;
-import genericClasses.QuantitativeDataVariable;
+import utilityClasses.StringUtilities;
+import dataObjects.CategoricalDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import probabilityDistributions.FDistribution;
 import matrixProcedures.Matrix;
 

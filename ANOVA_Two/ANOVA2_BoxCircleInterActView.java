@@ -5,10 +5,10 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.UnivariateContinDataObj;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

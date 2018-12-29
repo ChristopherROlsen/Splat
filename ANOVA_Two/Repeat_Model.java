@@ -5,12 +5,12 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.CategoricalDataVariable;
-import genericClasses.StudentizedRangeQ;
-import genericClasses.CatQuantPair;
+import dataObjects.CategoricalDataVariable;
+import probabilityDistributions.StudentizedRangeQ;
+import dataObjects.CatQuantPair;
 import genericClasses.ANOVA_Level;
-import genericClasses.UnivariateContinDataObj;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -56,9 +56,9 @@ public class Repeat_Model {
     QuantitativeDataVariable allData;
     QuantitativeDataVariable responseVar;
     StudentizedRangeQ studRangeQ;
-    Splat_DataManager dm;
+    Data_Manager dm;
     
-    public Repeat_Model( Splat_DataManager dm,
+    public Repeat_Model( Data_Manager dm,
                          ANOVA2_Procedure rcb_Procedure,
                          CategoricalDataVariable blockValues, 
                          CategoricalDataVariable treatValues,

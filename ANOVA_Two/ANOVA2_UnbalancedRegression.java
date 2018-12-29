@@ -5,7 +5,7 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import probabilityDistributions.TDistribution;
 import probabilityDistributions.FDistribution;
 import matrixProcedures.Matrix;

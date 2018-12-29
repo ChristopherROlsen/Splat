@@ -5,7 +5,7 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.UnivariateContinDataObj;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 

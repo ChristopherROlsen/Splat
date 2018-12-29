@@ -6,7 +6,7 @@
 package ANOVA_Two;
 
 import genericClasses.JustAnAxis;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.UnivariateContinDataObj;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;

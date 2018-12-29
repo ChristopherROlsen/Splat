@@ -5,7 +5,7 @@
  *************************************************/
 package ANOVA_Two;
 
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.UnivariateContinDataObj;
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
 import javafx.collections.FXCollections;
