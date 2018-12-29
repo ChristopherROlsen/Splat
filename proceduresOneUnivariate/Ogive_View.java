@@ -1,13 +1,13 @@
 /**************************************************
  *                    Ogive_View                  *
- *                     08/16/18                   *
- *                      00:00                     *
+ *                     12/25/18                   *
+ *                      15:00                     *
  *************************************************/
 package proceduresOneUnivariate;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.UnivariateContinDataObj;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
@@ -58,7 +58,7 @@ public class Ogive_View extends Region {
            majorTikInterval, firstBin, lastBin, rangeOfBins, m, b;
     double maxDataValue;
     double[] binRange, univDataArray, cumulativeFreqs;
-    
+    String descriptionOfVariable;
     String[] label;  // Why array?  
 
     // My classes
@@ -97,7 +97,7 @@ public class Ogive_View extends Region {
         
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
-        
+        descriptionOfVariable = ogive_Model.getDescriptionOfVariable();
         this.ogive_Model = ogive_Model;
         this.explore_Dashboard = explore_Dashboard;
         univDataArray = ogive_Model.getQDV().getLegalDataAsDoubles();
@@ -188,7 +188,7 @@ public class Ogive_View extends Region {
     public void setUpUI() {
         String title2String;
         txtTitle1 = new Text(50, 25, " Cumulative frequency ");
-        txtTitle2 = new Text (60, 45, " Cumulative frequency ");
+        txtTitle2 = new Text (60, 45, descriptionOfVariable);
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }

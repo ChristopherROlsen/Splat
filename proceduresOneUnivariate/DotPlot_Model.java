@@ -1,13 +1,13 @@
 /**************************************************
  *                   DotPlotModel                 *
- *                     05/14/18                   *
- *                      12:00                     *
+ *                     12/27/18                   *
+ *                      15:00                     *
  *************************************************/
 
 package proceduresOneUnivariate;
 
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
 
 public class DotPlot_Model {  
     // POJOs
@@ -18,7 +18,7 @@ public class DotPlot_Model {
            dataRange, freqRange;
     double[] minmax, fiveNumSummary;
     
-    String dotPlotLabel;
+    String dotPlotLabel, subTitle;
     
     // My classes
     Exploration_Dashboard univ_Dashboard;
@@ -28,14 +28,15 @@ public class DotPlot_Model {
     
     public DotPlot_Model() { }
         
-    public DotPlot_Model(QuantitativeDataVariable qdv) {  
+    public DotPlot_Model(String subTitle, QuantitativeDataVariable qdv) {  
         this.qdv = new QuantitativeDataVariable();
         this.qdv = qdv;
         dotPlotLabel = qdv.getTheDataLabel();
-
+        this.subTitle = subTitle;
         ucdo = new UnivariateContinDataObj(qdv);
     }
     
+    public String getSubTitle() { return subTitle; }
     public QuantitativeDataVariable getQDV_Model() { return qdv; }
     public UnivariateContinDataObj getUCDO()  {return ucdo; }
 }

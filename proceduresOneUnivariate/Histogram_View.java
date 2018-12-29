@@ -1,13 +1,13 @@
 /**************************************************
  *                  Histogram_View                *
- *                     08/15/18                   *
- *                      18:00                     *
+ *                     12/25/18                   *
+ *                      15:00                     *
  *************************************************/
 package proceduresOneUnivariate;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.UnivariateContinDataObj;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
@@ -58,6 +58,7 @@ public class Histogram_View extends Region {
            majorTikInterval, firstBin, lastBin, rangeOfBins, m, b;
     double[] binRange, univDataArray;
     
+    String descriptionOfVariable;
     String[] label;  // Why array?  
 
     // My classes
@@ -101,7 +102,7 @@ public class Histogram_View extends Region {
         this.explore_Dashboard = explore_Dashboard;
         univDataArray = histogram_Model.getQDV().getLegalDataAsDoubles();
         nLegalDataPoints = histogram_Model.getQDV().getLegalN();
-
+        descriptionOfVariable = histogram_Model.getDescriptionOfVariable();
         String graphsCSS = getClass().getResource("/css/Graphs.css").toExternalForm();
 
         graphCanvas = new Canvas(600, 600);
@@ -181,7 +182,7 @@ public class Histogram_View extends Region {
     public void setUpUI() {
         String title2String;
         txtTitle1 = new Text(50, 25, " Histogram ");
-        txtTitle2 = new Text (60, 45, " Histogram ");
+        txtTitle2 = new Text (60, 45, descriptionOfVariable);
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }

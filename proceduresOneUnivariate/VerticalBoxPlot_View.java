@@ -1,14 +1,14 @@
 /**************************************************
  *               VerticalBoxPlotView              *
- *                    12/09/18                    *
+ *                    12/27/18                    *
  *                     00:00                      *
  *************************************************/
 package proceduresOneUnivariate;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
@@ -22,7 +22,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
-
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.scene.control.CheckBox;
@@ -36,24 +35,25 @@ import ANOVA_One.*;
 public class VerticalBoxPlot_View extends Region 
 { 
     // POJOs
-    boolean dragging;
-    boolean[] vBoxCheckBoxSettings;    
+    private boolean dragging;
+    private boolean[] vBoxCheckBoxSettings;    
     
-    int nVariables, nCheckBoxes, nDataPoints;
-    int[] whiskerEndRanks;
+    private int nVariables, nCheckBoxes, nDataPoints;
+    private int[] whiskerEndRanks;
     
-    double initial_yMin, initial_yMax, initial_yRange, yMin, yMax, yRange,
+    private double initial_yMin, initial_yMax, initial_yRange, yMin, yMax, yRange,
            xPix_InitialPress, yPix_InitialPress, xPix_MostRecentDragPoint, 
            yPix_MostRecentDragPoint, newX_Lower, newX_Upper, newY_Lower, 
            newY_Upper, deltaX, deltaY, dispLowerBound, dispUpperBound, 
            bottomOfLowWhisker, topOfHighWhisker, initHoriz, initVert, 
            initWidth, initHeight;
     
-    double[] fiveNumberSummary, means, stDevs;
-    
-    String[] vBoxCheckBoxDescr;
+    private double[] fiveNumberSummary, means, stDevs;
+    private String descriptionOfVariable;
+    private String[] vBoxCheckBoxDescr;
+    private String explanVar, responseVar;
   
-    ObservableList<String> categoryLabels;
+    private ObservableList<String> categoryLabels;
     
     // My classes
     DragableAnchorPane dragableAnchorPane;
@@ -82,11 +82,13 @@ public class VerticalBoxPlot_View extends Region
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.vBoxModel = vBoxModel;
-        
+        descriptionOfVariable = vBoxModel.getDescriptionOfVariable();
         nCheckBoxes = 2;
         vBoxCheckBoxDescr = new String[nCheckBoxes];
         vBoxCheckBoxDescr[0] = " Means diamond ";
-        vBoxCheckBoxDescr[1] = " Extreme Outliers ";
+        vBoxCheckBoxDescr[1] = " Extreme Outliers ";  
+        explanVar = "Explanatory variable";
+        responseVar = "Response variable";
         initStuff();
     }
     
@@ -97,10 +99,13 @@ public class VerticalBoxPlot_View extends Region
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.vBoxModel = vBoxModel;
+        descriptionOfVariable = vBoxModel.getDescriptionOfVariable();
         nCheckBoxes = 2;
         vBoxCheckBoxDescr = new String[nCheckBoxes];
         vBoxCheckBoxDescr[0] = " Means diamond ";
-        vBoxCheckBoxDescr[1] = " Extreme Outliers ";
+        vBoxCheckBoxDescr[1] = " Extreme Outliers ";     
+        explanVar = "Explanatory variable";
+        responseVar = "Response variable";
         initStuff();
     }
     
@@ -111,10 +116,13 @@ public class VerticalBoxPlot_View extends Region
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.vBoxModel = vBoxModel;
+        descriptionOfVariable = vBoxModel.getDescriptionOfVariable();
         nCheckBoxes = 2;
         vBoxCheckBoxDescr = new String[nCheckBoxes];
         vBoxCheckBoxDescr[0] = " Means diamond ";
-        vBoxCheckBoxDescr[1] = " Extreme Outliers ";
+        vBoxCheckBoxDescr[1] = " Extreme Outliers ";            
+        explanVar = "Explanatory variable";
+        responseVar = "Response variable";
         initStuff();
     }
     
@@ -125,10 +133,13 @@ public class VerticalBoxPlot_View extends Region
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.vBoxModel = vBoxModel;
+        descriptionOfVariable = vBoxModel.getDescriptionOfVariable();
         nCheckBoxes = 2;
         vBoxCheckBoxDescr = new String[nCheckBoxes];
         vBoxCheckBoxDescr[0] = " Means diamond ";
-        vBoxCheckBoxDescr[1] = " Extreme Outliers ";
+        vBoxCheckBoxDescr[1] = " Extreme Outliers ";            
+        explanVar = "Explanatory variable";
+        responseVar = "Response variable";
         initStuff();
     }
     
@@ -139,10 +150,14 @@ public class VerticalBoxPlot_View extends Region
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.vBoxModel = vBoxModel;
+        descriptionOfVariable = vBoxModel.getDescriptionOfVariable();
         nCheckBoxes = 2;
         vBoxCheckBoxDescr = new String[nCheckBoxes];
         vBoxCheckBoxDescr[0] = " Means diamond ";
         vBoxCheckBoxDescr[1] = " Extreme Outliers ";
+        explanVar = anova1_Dashboard.getExplanVar();
+        responseVar = anova1_Dashboard.getResponseVar();
+
         initStuff();
     }
     
@@ -153,10 +168,14 @@ public class VerticalBoxPlot_View extends Region
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.vBoxModel = vBoxModel;
+        descriptionOfVariable = vBoxModel.getDescriptionOfVariable();
         nCheckBoxes = 2;
         vBoxCheckBoxDescr = new String[nCheckBoxes];
         vBoxCheckBoxDescr[0] = " Means diamond ";
         vBoxCheckBoxDescr[1] = " Extreme Outliers ";
+                
+        explanVar = "Explanatory variable";
+        responseVar = "Response variable";
         initStuff();
     }
     
@@ -177,6 +196,7 @@ public class VerticalBoxPlot_View extends Region
 
         graphCanvas = new Canvas(600, 600);
         gcVBox = graphCanvas.getGraphicsContext2D();
+
         
         makeTheCheckBoxes();    
         makeItHappen();        
@@ -271,7 +291,7 @@ public class VerticalBoxPlot_View extends Region
     public void setUpUI() {
         String title2String;
         txtTitle1 = new Text(50, 25, " Vertical Box Plot ");
-        txtTitle2 = new Text (60, 45, " Vertical Box Plot ");
+        txtTitle2 = new Text (60, 45, descriptionOfVariable);
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }
@@ -317,7 +337,7 @@ public class VerticalBoxPlot_View extends Region
 
         yAxis = new JustAnAxis(yMin, yMax);
         yAxis.setSide(Side.LEFT);
-        yAxis.setLabel(allTheQDVs.get(0).getDataUnits()); 
+        // yAxis.setLabel(allTheQDVs.get(0).getDataUnits()); 
         // This constant controls the rate of scale change when dragging
         deltaY = 0.005 * yRange;
         

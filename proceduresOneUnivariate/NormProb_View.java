@@ -1,14 +1,13 @@
 /**************************************************
  *                  NormProb_View                 *
- *                    10/14/18                    *
- *                      12:00                     *
+ *                    12/28/18                    *
+ *                      18:00                     *
  *************************************************/
-
 package proceduresOneUnivariate;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.Scatterplot_View;
+import dataObjects.QuantitativeDataVariable;
+import superClasses.Scatterplot_View;
 import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
 import regressionSimple.*;
@@ -29,7 +28,6 @@ public class NormProb_View extends Scatterplot_View
     boolean[] checkBoxSettings;
     int nDataPoints, nCheckBoxes;
     double slope, intercept;
-    // double initHoriz, initVert, initWidth, initHeight; 
 
     double[] dataArray, normalScoresArray, adStats;
     String dataLabel, normalScoresLabel, npModelThisTime, adString, adPValue;
@@ -57,7 +55,7 @@ public class NormProb_View extends Scatterplot_View
         this.normProb_Model = normProb_Model;
         npModelThisTime = "UnivExploration";
         constructTheModel();
-        
+        title2Text = new Text (60, 45, normProb_Model.getSubTitle());
         makeTheCheckBoxes();    
         makeItHappen();         
     }
@@ -72,13 +70,12 @@ public class NormProb_View extends Scatterplot_View
         this.normProb_Model = normProb_Model;
         npModelThisTime = "MultipleRegression";
         constructTheModel();
-        title2Text = new Text (60, 45, "    Residuals     ");
-        
+        title2Text = new Text (60, 45, normProb_Model.getSubTitle());
         makeTheCheckBoxes();    
         makeItHappen();         
     }
     
-    public NormProb_View(NormProb_Model normProb_Model, Regression_Dashboard reg_Dashboard,
+    public NormProb_View(NormProb_Model normProb_Model, Simple_Regression_Dashboard reg_Dashboard,
                         double placeHoriz, double placeVert,
                         double withThisWidth, double withThisHeight) 
     {
@@ -88,12 +85,11 @@ public class NormProb_View extends Scatterplot_View
         this.normProb_Model = normProb_Model; 
         npModelThisTime = "SimpleRegression";
         constructTheModel();
-        title2Text = new Text (60, 45, "    Residuals     ");        
+        title2Text = new Text (60, 45, "Standardized residuals vs. " + normProb_Model.getNormProbLabel());       
         makeTheCheckBoxes();    
         makeItHappen();         
     }
     
-
     
     public NormProb_View(NormProb_Model normProb_Model, Logistic_Dashboard logistic_Dashboard,
                         double placeHoriz, double placeVert,
@@ -106,7 +102,7 @@ public class NormProb_View extends Scatterplot_View
         npModelThisTime = "LogisticRegression";
         constructTheModel();
         
-        title2Text = new Text (60, 45, "Deviance residuals");
+        title2Text = new Text (60, 45, "Standardized residuals vs. " + normProb_Model.getNormProbLabel());
         
         makeTheCheckBoxes();    
         makeItHappen();         
@@ -148,8 +144,6 @@ public class NormProb_View extends Scatterplot_View
     
     public void completeTheDeal() { 
         initializeGraphParameters();
-        xAxis.setLabel(normProb_Model.getNormProbLabel());
-        yAxis.setLabel("Z-score");
         setUpUI();       
         setUpAnchorPane();
         setHandlers();
@@ -160,8 +154,7 @@ public class NormProb_View extends Scatterplot_View
 
     public void setUpUI() {
         String title2String;
-        title1Text = new Text(50, 25, " Normal Prob Plot ");
-        // title2Text = new Text (60, 45, " Normal Prob Plot ");
+        title1Text = new Text(50, 25, " Normal Probability Plot ");
         title1Text.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         title2Text.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }

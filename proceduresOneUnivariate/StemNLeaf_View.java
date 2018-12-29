@@ -7,7 +7,7 @@
 package proceduresOneUnivariate;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import java.util.ArrayList;
 import java.util.Formatter;
 import javafx.scene.control.RadioButton;
@@ -136,7 +136,7 @@ public class StemNLeaf_View {
         sl_Title2_2 = strRadioButtonDescriptions[1];
         sl_Title2_5 = strRadioButtonDescriptions[2];
         
-        String slVarName = stemNLeaf_Model.getTheQDV().getDataLabel() + "\n";
+        String slVarName = stemNLeaf_Model.getDescriptionOfVariable() + "\n";
         int slNSize = stemNLeaf_Model.getTheQDV().getLegalN();
         String strSLNSize = "N = " + String.valueOf(slNSize) + "    ";
         slTitleLines = sl_Title1 + slVarName + strSLNSize + strOrdMag + "\n\n";

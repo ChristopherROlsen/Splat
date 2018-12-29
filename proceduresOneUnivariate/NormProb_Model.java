@@ -1,12 +1,12 @@
 /**************************************************
  *                 NormProb_Model                 *
- *                    09/29/18                    *
- *                      12:00                     *
+ *                    12/25/18                    *
+ *                      15:00                     *
  *************************************************/
 package proceduresOneUnivariate;
 
-import genericClasses.Transformations_Calculations;
-import genericClasses.QuantitativeDataVariable;
+import utilityClasses.Transformations_Calculations;
+import dataObjects.QuantitativeDataVariable;
 import probabilityDistributions.StandardNormal;
 
 public class NormProb_Model {  
@@ -16,7 +16,7 @@ public class NormProb_Model {
     double univDataMin, univDataMax;
     double[] theData, minmax, normalScores;
     
-    String normProbLabel, normProbUnits;    
+    String normProbLabel, normProbUnits, subTitle;    
     String[] strNormalScores;
 
     // My classes
@@ -30,7 +30,8 @@ public class NormProb_Model {
    
     public NormProb_Model()  { }
         
-    public NormProb_Model(QuantitativeDataVariable qdv_Data) { 
+    public NormProb_Model(String subTitle, QuantitativeDataVariable qdv_Data) { 
+        this.subTitle = subTitle;
         qdv = new QuantitativeDataVariable();
         qdv = qdv_Data;
         normProbLabel = qdv.getTheDataLabel();
@@ -44,6 +45,7 @@ public class NormProb_Model {
         qdvNSs = new QuantitativeDataVariable("Normal score", strNormalScores);
     }
     
+    public String getSubTitle() { return subTitle; }
     public NormProb_View getNormProb_View() { return normProb_View; }
     public QuantitativeDataVariable getData() { return qdvData; }
     public QuantitativeDataVariable getNormalScores() { return qdvNSs; }    

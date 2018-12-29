@@ -1,48 +1,49 @@
 /************************************************************
  *                     StemAndLeaf_Model                    *
- *                          06/27/18                        *
- *                            12:00                         *
+ *                          12/25/18                        *
+ *                            18:00                         *
  ***********************************************************/
 package proceduresOneUnivariate;
 
-import genericClasses.StringUtilities;
-import genericClasses.QuantitativeDataVariable;
+import utilityClasses.StringUtilities;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 public class StemNLeaf_Model
 {
     // POJOs
-    boolean posNumbersExist, negNumbersExist, ordMagIsPreSet, leEqualsHe;
+    private boolean posNumbersExist, negNumbersExist, ordMagIsPreSet, leEqualsHe;
     
-    int nVarsChosen, orderOfMagnitude, nDataPoints, firstNonZeroColumn, 
+    private int nVarsChosen, orderOfMagnitude, nDataPoints, firstNonZeroColumn, 
         firstNonConstantColumn, firstNonZeroDigitColInString, 
         firstDiffDigitColInString, lengthOfStems, nStems, le_AsInteger, 
         he_AsInteger, bbslFirstNonZeroColumn, bbslFirstNonConstantColumn;
     
-    double[] data_Sorted, data_ReverseSorted;
+    private double[] data_Sorted, data_ReverseSorted;
     
-    String highestStem, lowestStem;
-    String strDaStrippedNumber[];
-    ArrayList<String> data_AsStrings, theStems_With_Vert, theStems_WO_Vert, 
+    private String highestStem, lowestStem, descriptionOfVariable;
+    private String strDaStrippedNumber[];
+    private ArrayList<String> data_AsStrings, theStems_With_Vert, theStems_WO_Vert, 
                       oneLineStems, twoLineStems, fiveLineStems, allTheLabels,
                       oneLineStemPlot, twoLineStemPlot, fiveLineStemPlot;
 
     // My classes
-    Exploration_Dashboard explore_Dashboard;
-    Splat_DataManager dataManager; 
-    StemNLeaf_View sandL_View;    
-    QuantitativeDataVariable theQDV;
+    private Exploration_Dashboard explore_Dashboard;
+    private Data_Manager dataManager; 
+    private StemNLeaf_View sandL_View;    
+    private QuantitativeDataVariable theQDV;
     
     // POJOs / FX
-    TextArea txtArea1, txtArea2, txtArea5;
+    private TextArea txtArea1, txtArea2, txtArea5;
     
     public StemNLeaf_Model() { }
     
-    public StemNLeaf_Model(QuantitativeDataVariable theQDV, 
+    public StemNLeaf_Model(String descriptionOfVariable,
+                           QuantitativeDataVariable theQDV, 
                            boolean presetOrdMag, 
                            int ordMag,
                            int presetFirstNonZero,
@@ -57,7 +58,7 @@ public class StemNLeaf_Model
 
         this.theQDV = new QuantitativeDataVariable();
         this.theQDV = theQDV;
-        
+        this.descriptionOfVariable = descriptionOfVariable;
         doAllThatSLStuff();
     }
     
@@ -372,7 +373,9 @@ public class StemNLeaf_Model
         int leafDigit = firstNonConstantColumn + 1;
         String theLeaf = stringyWingy.substring(leafDigit, leafDigit + 1);
         return theLeaf;
-    }  
+    } 
+    
+    public String getDescriptionOfVariable() { return descriptionOfVariable; }
     
     public StemNLeaf_View getStemNLeaf_View() { return sandL_View; }
    

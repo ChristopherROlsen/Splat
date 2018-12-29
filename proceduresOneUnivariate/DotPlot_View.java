@@ -1,20 +1,18 @@
 /**************************************************
  *                    DotPlotView                 *
- *                     09/05/18                   *
- *                      00:00                     *
+ *                     12/28/18                   *
+ *                      18:00                     *
  *************************************************/
 
 package proceduresOneUnivariate;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.UnivariateContinDataObj;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -30,12 +28,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.layout.*;
+import superClasses.*;
 
-public class DotPlot_View extends Region {
+public class DotPlot_View extends Scatterplot_View {
 
     // POJOs
     boolean dragging, canFit;
-    boolean[] checkBoxSettings;
     
     int nBins, nLegalDataPoints, nMajorIntervals, nSquaresThisFreq, nCheckBoxes,
         possibleBarsIndex, nMajorTickPositions, intervalsPerMajorTick, maximumFreq, 
@@ -45,15 +43,11 @@ public class DotPlot_View extends Region {
     final int nBinSizes = 9;
     final int[] possibleBarsPerTik = {1, 2, 4, 5, 10, 20, 40, 50, 100};
 
-    double initHoriz, initVert, initWidth, initHeight, yMin, yMax, yRange,
-           initial_xMin, initial_xMax, initial_xRange, xMin, xMax, xRange,
+    double yMin, yMax, initial_xMin, initial_xMax, initial_xRange, xMin, xMax,
            pixWidthPane, pixHeightPane, pixBinSize, ww, hh, startSquaresAt,
            univDataMin, univDataMax, maxFreq, pixBinWidth, pixSpaceSize,
            startSquaresAtmaximumFreq, leftEndOfBin, rightEndOfBin,
-           xPix_InitialPress, yPix_InitialPress,
-           xPix_MostRecentDragPoint, yPix_MostRecentDragPoint,
-           newX_Lower, newX_Upper, newY_Lower, newY_Upper, deltaX, deltaY,
-           dispLowerBound, dispUpperBound, xScale_Range, yScale_Range,
+           xScale_Range, yScale_Range,
            pixSmallestSpace, pixSquareSize, pixSquarePlusSpace,
            minMajorTick, maxMajorTick, majorTickRange, binWidth,
            majorTikInterval, firstBin, lastBin, rangeOfBins, m, b;
@@ -64,15 +58,11 @@ public class DotPlot_View extends Region {
     
     // My classes
     DotPlot_Model dotPlot_Model;  
-    DragableAnchorPane dragableAnchorPane;
-    Exploration_Dashboard explore_Dashboard;    
-    JustAnAxis xAxis, yAxis;   
+    Exploration_Dashboard explore_Dashboard;      
     UnivariateContinDataObj ucdo;    
     
     // POFOs / FX
     AnchorPane checkBoxRow;
-    Canvas graphCanvas;
-    GraphicsContext gc, imgGC; // Required for drawing on the Canvas
     MouseEvent mickeyEvent;
     Pane theContainingPane;
     StackPane dotPlot;  // Why stack pane?
@@ -88,12 +78,12 @@ public class DotPlot_View extends Region {
     Menu setupMenu;
 
     
-    public DotPlot_View() { }
+   //  public DotPlot_View() { }
 
     public DotPlot_View(DotPlot_Model dotPlot_Model, Exploration_Dashboard explore_Dashboard,
                         double placeHoriz, double placeVert,
                         double withThisWidth, double withThisHeight) {
-        
+        super(placeHoriz, placeVert, withThisWidth, withThisHeight);    
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
         
@@ -154,7 +144,7 @@ public class DotPlot_View extends Region {
         xAxis.setLowerBound(newX_Lower ); 
         xAxis.setUpperBound(newX_Upper );
         
-        establishBinSizes(possibleBarsIndex);
+        establishBinSizes(possibleBarsIndex);  // <-------------
         
         yMin = 0;
         yMax = maximumFreq;
@@ -184,9 +174,8 @@ public class DotPlot_View extends Region {
     }
     
     public void setUpUI() {
-        String title2String;
         txtTitle1 = new Text(50, 25, " Dot plot ");
-        txtTitle2 = new Text (60, 45, " Dot plot ");
+        txtTitle2 = new Text (60, 45, dotPlot_Model.getSubTitle());
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }
@@ -196,7 +185,6 @@ public class DotPlot_View extends Region {
         graphCanvas.widthProperty().bind(dragableAnchorPane.widthProperty().multiply(.90));
 
         dragableAnchorPane.makeDragable();
-        String graphsCSS = getClass().getResource("/css/Graphs.css").toExternalForm();
         dragableAnchorPane.getStylesheets().add(graphsCSS);    
 
         dragableAnchorPane.getTheAP()
@@ -211,7 +199,6 @@ public class DotPlot_View extends Region {
         double pixSquareLeft, pixSquareTop, binHeight;
         double leftEdgeThisBin, pixMiddleThisBin, basePixAtFreqZero;
         int binFrequency;  
-        String tempString;
         double text1Width = txtTitle1.getLayoutBounds().getWidth();
         double text2Width = txtTitle2.getLayoutBounds().getWidth();
         double paneWidth = dragableAnchorPane.getWidth();
@@ -282,17 +269,15 @@ public class DotPlot_View extends Region {
                 startSquaresAt = (pixMiddleThisBin - 0.5 * pixSpaceSize) - (0.5 * nSquares - 1) * pixSpaceSize - 0.5 * pixSquareSize;
 
             } //    end binFreq > 0
-            //  Does this do anything?
 
             if (binFrequency > 0) {
                 for (int ithDot = 1; ithDot <= binFrequency; ithDot++) {
                     pixSquareLeft = xAxis.getDisplayPosition(binRange[0]);
                     pixSquareTop = yAxis.getDisplayPosition(ithDot);
-                    // hh = yAxis.getDisplayPosition(0.0) - yAxis.getDisplayPosition(binFrequency);
                     hh = yAxis.getDisplayPosition(0.0) - yAxis.getDisplayPosition(1.0); //  Unit height
                     ww = xAxis.getDisplayPosition(binRange[1]) - xAxis.getDisplayPosition(binRange[0]);
                     hh = Math.min(hh, ww);
-                    gc.fillOval(pixSquareLeft, pixSquareTop - 0.5 * hh, ww, hh);
+                    gc.fillOval(pixSquareLeft, pixSquareTop - 0.5 * hh, hh, hh);
                 }
             }
 
@@ -407,178 +392,7 @@ public class DotPlot_View extends Region {
             }
         });
     }
-
-public void setHandlers(){
-    
-        graphCanvas.setOnMousePressed(dotPlotMouseHandler); 
-        
-        // xAxis.setOnMouseClicked(xAxisMouseHandler); 
-        xAxis.setOnMouseDragged(xAxisMouseHandler); 
-        // xAxis.setOnMouseEntered(xAxisMouseHandler); 
-        // xAxis.setOnMouseExited(xAxisMouseHandler); 
-        // xAxis.setOnMouseMoved(xAxisMouseHandler); 
-        xAxis.setOnMousePressed(xAxisMouseHandler); 
-        xAxis.setOnMouseReleased(xAxisMouseHandler); 
-        
-        // yAxis.setOnMouseClicked(yAxisMouseHandler); 
-        yAxis.setOnMouseDragged(yAxisMouseHandler); 
-        // yAxis.setOnMouseEntered(yAxisMouseHandler); 
-        // yAxis.setOnMouseExited(yAxisMouseHandler); 
-        // yAxis.setOnMouseMoved(yAxisMouseHandler); 
-        yAxis.setOnMousePressed(yAxisMouseHandler); 
-        yAxis.setOnMouseReleased(yAxisMouseHandler); 
-    }
-    
-    EventHandler<MouseEvent> xAxisMouseHandler = new EventHandler<MouseEvent>() 
-    {
-        @Override
-        public void handle(MouseEvent mouseEvent) 
-        {
-            if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED) 
-            { 
-                xPix_InitialPress = mouseEvent.getX();  
-                xPix_MostRecentDragPoint = mouseEvent.getX();
-                dragging = false;   
-            }
-            else 
-            if(mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED)
-            {
-                if (dragging == true)
-                {
-                    xAxis.setLowerBound(newX_Lower ); 
-                    xAxis.setUpperBound(newX_Upper );
-                    xRange = newX_Upper - newX_Lower;
-                    deltaX = 0.005 * xRange;
-                    dragging = false;
-                }
-            }
-            else 
-            if(mouseEvent.getEventType() == MouseEvent.MOUSE_DRAGGED)
-            {
-                dragging = true;
-                double xPix_Dragging = mouseEvent.getX();
-                newX_Lower = xAxis.getLowerBound();
-                newX_Upper = xAxis.getUpperBound(); 
-
-                dispLowerBound = xAxis.getDisplayPosition(xAxis.getLowerBound());
-                dispUpperBound = xAxis.getDisplayPosition(xAxis.getUpperBound());
-
-                double frac = mouseEvent.getX() / dispUpperBound;
-                
-                // Still dragging right
-                if((xPix_Dragging > xPix_InitialPress) && (xPix_Dragging > xPix_MostRecentDragPoint))
-                {    
-                    // Which half of scale?
-                    if (frac > 0.5) //  Right of center -- OK
-                    {
-                        newX_Upper = xAxis.getUpperBound() - deltaX;
-                    }
-                    else  // Left of Center
-                    {
-                        newX_Lower = xAxis.getLowerBound() - deltaX;
-                    }
-                }
-                else 
-                if ((xPix_Dragging < xPix_InitialPress) && (xPix_Dragging < xPix_MostRecentDragPoint))
-                {   // On right, dragging left
-                    if (frac < 0.5) // Left of center
-                    {
-                        newX_Lower = xAxis.getLowerBound() + deltaX;
-                    }
-                    else    // Right of center -- OK
-                    {
-                        newX_Upper = xAxis.getUpperBound() + deltaX;
-                    }
-                }    
-                
-                //  Make this call in a separate method from the mouseEventHandler?
-                
-                if (xAxis.getHasForcedLowScaleEnd()) {
-                    newX_Lower = xAxis.getForcedLowScaleEnd();
-                }
-                if (xAxis.getHasForcedHighScaleEnd()) {
-                    newX_Upper = xAxis.getForcedHighScaleEnd();                 
-                }
-
-                xAxis.setLowerBound(newX_Lower ); 
-                xAxis.setUpperBound(newX_Upper );
-
-                dispLowerBound = xAxis.getDisplayPosition(xAxis.getLowerBound());
-                dispUpperBound = xAxis.getDisplayPosition(xAxis.getUpperBound());
-                xPix_MostRecentDragPoint = mouseEvent.getX();
-                doTheGraph();
-            }
-        }
-    };
-    
-     EventHandler<MouseEvent> yAxisMouseHandler = new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent mouseEvent) {
-            if (mouseEvent.getEventType() == MouseEvent.MOUSE_PRESSED) { 
-                yPix_InitialPress = mouseEvent.getY(); 
-                yPix_MostRecentDragPoint = mouseEvent.getY();
-                dragging = false;
-            }
-            else 
-            if(mouseEvent.getEventType() == MouseEvent.MOUSE_RELEASED) {
-                if (dragging == true) {
-                    yAxis.setLowerBound(newY_Lower ); 
-                    yAxis.setUpperBound(newY_Upper );
-                    yRange = newY_Upper - newY_Lower;
-                    deltaY = 0.005 * yRange;
-                    dragging = false;
-                }
-            }
-            else 
-            if(mouseEvent.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                dragging = true;
-                double yPix_Dragging = mouseEvent.getY();  
-                dispLowerBound = yAxis.getDisplayPosition(yAxis.getLowerBound());
-                dispUpperBound = yAxis.getDisplayPosition(yAxis.getUpperBound());
-
-                double frac = mouseEvent.getY() / dispLowerBound;
-                
-                if((yPix_Dragging > yPix_InitialPress) && (yPix_Dragging > yPix_MostRecentDragPoint)) {    
-                    if (frac < 0.5) {
-                        newY_Upper = yAxis.getUpperBound() + deltaY;
-                    } else {
-                        newY_Lower = yAxis.getLowerBound() + deltaY;
-                    }
-                }
-                else 
-                if ((yPix_Dragging < yPix_InitialPress) && (yPix_Dragging < yPix_MostRecentDragPoint)){  
-                    if (frac < 0.5){
-                        newY_Upper = yAxis.getUpperBound() - deltaY;
-                    }
-                    else {
-                        newY_Lower = yAxis.getLowerBound() - deltaY;
-                    }
-                }  
-                
-                if (yAxis.getHasForcedLowScaleEnd()) {
-                    newY_Lower = yAxis.getForcedLowScaleEnd();
-                }
-                if (yAxis.getHasForcedHighScaleEnd()) {
-                    newY_Upper = yAxis.getForcedHighScaleEnd();
-                }    
-                
-                yAxis.setLowerBound(newY_Lower ); 
-                yAxis.setUpperBound(newY_Upper ); 
-                dispLowerBound = yAxis.getDisplayPosition(yAxis.getLowerBound());
-                dispUpperBound = yAxis.getDisplayPosition(yAxis.getUpperBound());
-                
-                yPix_MostRecentDragPoint = mouseEvent.getY();                
-                doTheGraph();
-            }
-        }
-    };   
-     
-    EventHandler<MouseEvent> dotPlotMouseHandler = new EventHandler<MouseEvent>() 
-    {
-        @Override
-        public void handle(MouseEvent mouseEvent) {  }
-    };   
-    
+   
    public Pane getTheContainingPane() { return theContainingPane; }
 
 }

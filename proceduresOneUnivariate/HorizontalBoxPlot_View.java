@@ -1,15 +1,15 @@
 /**************************************************
  *             HorizontalBoxPlot_View             *
- *                    12/09/18                    *
- *                     00:00                      *
+ *                    12/25/18                    *
+ *                     18:00                      *
  *************************************************/
 
 package proceduresOneUnivariate;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
-import genericClasses.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
+import dataObjects.UnivariateContinDataObj;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Side;
@@ -51,6 +51,8 @@ public class HorizontalBoxPlot_View extends Region
            initHeight;
     
     double[] fiveNumberSummary, means, stDevs;
+    
+    String descriptionOfVariable;
     String[] hBoxCheckBoxDescr;
     ObservableList<String> categoryLabels;
         
@@ -82,6 +84,8 @@ public class HorizontalBoxPlot_View extends Region
         initHoriz = placeHoriz; initVert = placeVert;
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.hBoxModel = hBoxModel;
+        descriptionOfVariable = hBoxModel.getDescriptionOfVariable();
+        System.out.println("88 hBox, descr = " + descriptionOfVariable);
         nCheckBoxes = 2;
         hBoxCheckBoxDescr = new String[nCheckBoxes];
         hBoxCheckBoxDescr[0] = " Means diamond ";
@@ -199,7 +203,7 @@ public class HorizontalBoxPlot_View extends Region
     
     public void setUpUI() {
         txtTitle1 = new Text(50, 25, " Horizontal Box Plot ");
-        txtTitle2 = new Text (60, 45, " Horizontal Box Plot ");
+        txtTitle2 = new Text (60, 45, descriptionOfVariable);
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }

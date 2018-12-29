@@ -5,8 +5,8 @@
  *************************************************/
 package proceduresOneUnivariate;
 
-import genericClasses.Dashboard;
-import genericClasses.QuantitativeDataVariable;
+import superClasses.Dashboard;
+import dataObjects.QuantitativeDataVariable;
 import genericClasses.DragableAnchorPane;
 import javafx.stage.*;
 import javafx.scene.layout.Pane;
@@ -28,7 +28,7 @@ public class Exploration_Dashboard extends Dashboard {
                        stemNLeafDRAnchorPane, dotPlotDRAnchorPane,
                        horizBoxDRAnchorPane, vertBoxDRAnchorPane,
                        ogiveDRAnchorPane;  
-    Exploration_PrepareStructs exp_Structures; 
+    Exploration_PrepareStructs exploration_PrepStruct; 
     QuantitativeDataVariable stemNLeaf_Model;
        
     DotPlot_Model dotPlotModel;    
@@ -59,7 +59,7 @@ public class Exploration_Dashboard extends Dashboard {
             
     public Exploration_Dashboard(Exploration_PrepareStructs exploration_PrepStructs, QuantitativeDataVariable univ_Model) {
         super(7);
-        exp_Structures = exploration_PrepStructs;
+        exploration_PrepStruct = exploration_PrepStructs;
 
         histModel = new Histogram_Model();
         histModel = exploration_PrepStructs.getHistModel();
