@@ -25,7 +25,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 public class Single_t_Dialog extends One_Variable_Dialog{ 
     
@@ -55,7 +55,7 @@ public class Single_t_Dialog extends One_Variable_Dialog{
     
     ListView<String> list_CIViews, list_AlphaViews; 
     
-    public Single_t_Dialog(Splat_DataManager myData, String variableType) {
+    public Single_t_Dialog(Data_Manager myData, String variableType) {
         super(myData, "Quantitative");
         
         minSampleSize = 3;

@@ -51,7 +51,7 @@ public class Contingency_Dialog {
     private Stage diagStage;
     private TextField[][] obsFreqText;
 
-    public void ShowContingencyDialog(Splat_DataManager myData, TextArea myText, boolean showOpt) {
+    public void ShowContingencyDialog(Data_Manager myData, TextArea myText, boolean showOpt) {
         System.out.println("56 Contingency_Dialog");
         VBox mainPanel = new VBox();
         Insets pad10 = new Insets(10, 10, 10, 10);
@@ -112,7 +112,7 @@ public class Contingency_Dialog {
         VBox rightPanB = new VBox(5);
         rightPanB.setPadding(new Insets(15, 0, 0, 20));
         Label msgLabel = new Label("Choose two variables:");
-        Splat_VarCheckList varList = new Splat_VarCheckList(myData, false, null, null);
+        Var_CheckList varList = new Var_CheckList(myData, false, null, null);
         rightPanB.getChildren().addAll(msgLabel, varList.getPane());
         rightPanel.getChildren().addAll(rawInp, rightPanB);
         rightPanB.setDisable(true);

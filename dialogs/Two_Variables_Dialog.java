@@ -1,13 +1,14 @@
 /************************************************************
  *                    Two-Variables_Dialog                  *
- *                          12/09/18                        *
- *                            18:00                         *
+ *                          12/27/12                        *
+ *                            15:00                         *
  ***********************************************************/
 package dialogs;
 
-import genericClasses.ColumnOfData;
-import genericClasses.DataCleaner;
+import dataObjects.ColumnOfData;
+import utilityClasses.DataCleaner;
 import java.util.ArrayList;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,8 +24,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import splat.Splat_DataManager;
-import splat.Splat_VarList;
+import splat.Data_Manager;
+import splat.Var_List;
 
 public class Two_Variables_Dialog extends Splat_Dialog {
     // POJOs
@@ -33,11 +34,12 @@ public class Two_Variables_Dialog extends Splat_Dialog {
     int minVars, maxVars, varIndexForX, varIndexForY, nCheckBoxes, minSampleSize;
     
     String var_1_DataType, var_2_DataType;
+    String explanatoryVariable, responseVariable, subTitle;
     public ArrayList<String> strVarLabels;
     
     // My classes
     public ArrayList<ColumnOfData> al_OfColumns;
-    Splat_VarList listOfVars;    
+    Var_List listOfVars;    
     
     // POJOs / FX
     public Button resetButton, selectXVariable, selectYVariable;
@@ -51,15 +53,15 @@ public class Two_Variables_Dialog extends Splat_Dialog {
     
     public Rectangle quantReal, quantInt, categorical;
     public TextField tf_FirstVar, tf_SecondVar;
+    public TextField tfExplanVar, tfResponseVar;
 
-
+    Label lblExplanVar, lblResponseVar;
     
-    Two_Variables_Dialog(Splat_DataManager dm, String var_1_DataType, String var_2_DataType) {
+    Two_Variables_Dialog(Data_Manager dm, String var_1_DataType, String var_2_DataType) {
         super(dm);
         this.dm = dm;
         this.var_1_DataType = var_1_DataType;
         this.var_2_DataType = var_2_DataType;
-        //System.out.println("55 TV-Dial");
         returnStatus = "Ok";
         runAnalysis = false;
         ok = true;
@@ -87,7 +89,7 @@ public class Two_Variables_Dialog extends Splat_Dialog {
         vBoxVars2ChooseFrom.setAlignment(Pos.TOP_LEFT);
         lbl_VarsInData = new Label("Variables in Data:");
         lbl_VarsInData.setPadding(new Insets(0, 0, 5, 0));
-        listOfVars = new Splat_VarList(dm, true, null, null);
+        listOfVars = new Var_List(dm, true, null, null);
         vBoxVars2ChooseFrom.getChildren().add(lbl_VarsInData);
         vBoxVars2ChooseFrom.getChildren().add(listOfVars.getPane());
         vBoxVars2ChooseFrom.setPadding(new Insets(0, 10, 0, 10));
@@ -110,6 +112,18 @@ public class Two_Variables_Dialog extends Splat_Dialog {
         tf_SecondVar = new TextField("");
         tf_SecondVar.setPrefWidth(125.0);
         vBoxYVarChoices.getChildren().addAll(lblSecondVar, tf_SecondVar);
+        
+        lblExplanVar =   new Label(" Explanatory variable: ");
+        lblResponseVar = new Label("    Response variable: ");
+        
+        tfExplanVar = new TextField("Explanatory variable");
+        tfResponseVar = new TextField("Response variable");
+        
+        tfExplanVar.setPrefColumnCount(15);
+        tfResponseVar.setPrefColumnCount(15);
+        
+        tfExplanVar.textProperty().addListener(this::changeExplanVar);
+        tfResponseVar.textProperty().addListener(this::changeResponseVar);
 
         gridChoicesMade = new GridPane();
         gridChoicesMade.setHgap(10);
@@ -118,6 +132,13 @@ public class Two_Variables_Dialog extends Splat_Dialog {
         gridChoicesMade.add(vBoxXVarChoices, 1, 0);
         gridChoicesMade.add(selectYVariable, 0, 1);
         gridChoicesMade.add(vBoxYVarChoices, 1, 1);
+        
+        gridChoicesMade.add(lblExplanVar, 0, 3);
+        gridChoicesMade.add(lblResponseVar, 0, 4);
+        gridChoicesMade.add(tfExplanVar, 1, 3);
+        gridChoicesMade.add(tfResponseVar, 1, 4);
+        
+        
         GridPane.setValignment(selectXVariable, VPos.BOTTOM);
         GridPane.setValignment(selectYVariable, VPos.BOTTOM);
         gridChoicesMade.setPadding(new Insets(0, 10, 0, 0));
@@ -157,7 +178,6 @@ public class Two_Variables_Dialog extends Splat_Dialog {
         mainPanel.getChildren().add(buttonPanel);
         
         Scene myScene = new Scene(mainPanel);
-        // String css = getClass().getResource("/css/StatDialogs.css").toExternalForm();
         myScene.getStylesheets().add(css);
         setScene(myScene);
 
@@ -226,6 +246,9 @@ public class Two_Variables_Dialog extends Splat_Dialog {
                     close();
                 }
             }
+            explanatoryVariable = tfExplanVar.getText();
+            responseVariable = tfResponseVar.getText();
+            subTitle = responseVariable + " vs. " + explanatoryVariable;
         });       
     }
     
@@ -252,9 +275,26 @@ public class Two_Variables_Dialog extends Splat_Dialog {
         dm.resetTheGrid(); 
     }
     
+        public void changeExplanVar(ObservableValue<? extends String> prop,
+                String oldValue,
+                String newValue) {
+                tfExplanVar.setText(newValue); 
+        }
+
+        public void changeResponseVar(ObservableValue<? extends String> prop,
+                String oldValue,
+                String newValue) {
+                tfResponseVar.setText(newValue); 
+        }
+    
     public ArrayList<ColumnOfData> getData() {
         return al_OfColumns;
     }
+    
+    // Used on many two-variable graphs
+    public String getExplanVar() { return explanatoryVariable; }
+    public String getResponseVar() { return responseVariable; }
+    public String getSubTitle() { return subTitle; }
     
     public String getReturnStatus() { return returnStatus; }
     

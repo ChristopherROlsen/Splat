@@ -1,6 +1,6 @@
 /**************************************************
  *            ANOVA1_NotStacked_Dialog            *
- *                    12/01/18                    *
+ *                    12/24/18                    *
  *                     12:00                      *
  *************************************************/
 
@@ -9,7 +9,7 @@
 // ************************************************
 package dialogs;
 
-import genericClasses.ColumnOfData;
+import dataObjects.ColumnOfData;
 import java.util.ArrayList;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -36,6 +36,8 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
     private boolean ok = true;
     private int numSelected, minVars, maxVars, quantVar;
     Separator sepTitle, sepDirections;
+    
+    Label lblExplanVar, lblResponseVar;
     TextField tfExplanVar, tfResponseVar;
     
     private ArrayList<Integer> al_IndexVarsSelected;
@@ -46,7 +48,7 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
     
     // My classes
     private ColumnOfData col_UnivData;
-    private ArrayList<ColumnOfData> dataSet;
+    private ArrayList<ColumnOfData> data;
     private MyDialogs msgDiag;
     
     
@@ -59,7 +61,7 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
     // *            The data are in separate columns                    *
     // ******************************************************************
     
-    public ANOVA1_NotStacked_Dialog(Splat_DataManager dm) {
+    public ANOVA1_NotStacked_Dialog(Data_Manager dm) {
         this.dm = dm;
         createANOVA_NS_Dialog();
     }
@@ -91,7 +93,7 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
         vList1.setAlignment(Pos.TOP_LEFT);
         vLabel1 = new Label();
         vLabel1.setPadding(new Insets(0, 0, 5, 0));
-        Splat_VarList varsAvailable = new Splat_VarList(dm, false, null, null);
+        Var_List varsAvailable = new Var_List(dm, false, null, null);
         vList1.getChildren().add(vLabel1);
         vList1.getChildren().add(varsAvailable.getPane());
         vList1.setPadding(new Insets(0, 10, 0, 10));
@@ -102,13 +104,13 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
         vList2.setAlignment(Pos.TOP_LEFT);
         vLabel2 = new Label();
         vLabel2.setPadding(new Insets(0, 0, 5, 0));
-        Splat_VarList varsSelected = new Splat_VarList(dm, false, 125.0, 125.0);
+        Var_List varsSelected = new Var_List(dm, false, 125.0, 125.0);
         varsSelected.clearList();
         vList2.getChildren().add(vLabel2);
         vList2.getChildren().add(varsSelected.getPane());
         
-        Label lblExplanVar =   new Label(" Explanatory variable: ");
-        Label lblResponseVar = new Label("    Response variable: ");
+        lblExplanVar =   new Label(" Explanatory variable: ");
+        lblResponseVar = new Label("    Response variable: ");
         
         tfExplanVar = new TextField("Explanatory variable");
         tfResponseVar = new TextField("Response variable");
@@ -205,7 +207,7 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
                 ok = false;
             }
             
-            dataSet =  new ArrayList(); // ArrayList[] of chosen variables?
+            data =  new ArrayList(); // ArrayList[] of chosen variables?
 
             if (ok) {
                 for (int j = 0; j < numSelected; j++) {
@@ -216,7 +218,7 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
 
                     // an ArrayList of Strings
                     col_UnivData = col_UnivData.getColumnOfData();                       
-                    dataSet.add(col_UnivData);
+                    data.add(col_UnivData);
                 }
             }   //  end if(ok)   
             dialogStage.close();
@@ -229,17 +231,17 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
 
     } // End createANOVA_NS_Dialog
     
-        public void changeExplanVar(ObservableValue<? extends String> prop,
-                String oldValue,
-                String newValue) {
-                tfExplanVar.setText(newValue); 
-        }
+    public void changeExplanVar(ObservableValue<? extends String> prop,
+            String oldValue,
+            String newValue) {
+            tfExplanVar.setText(newValue); 
+    }
 
-        public void changeResponseVar(ObservableValue<? extends String> prop,
-                String oldValue,
-                String newValue) {
-                tfResponseVar.setText(newValue); 
-        }
+    public void changeResponseVar(ObservableValue<? extends String> prop,
+            String oldValue,
+            String newValue) {
+            tfResponseVar.setText(newValue); 
+    }
     
     public void show_ANOVA1_NS_Dialog() {
         minVars = 2;
@@ -249,10 +251,11 @@ public class ANOVA1_NotStacked_Dialog extends Splat_Dialog {
         dialogStage.showAndWait();
     }
     
-    public ArrayList<String> getChosenLabels() { return str_ChosenLabels; }
+    public String getExplanatoryVariable() { return tfExplanVar.getText(); }
+    public String getResponseVariable() { return tfResponseVar.getText(); } 
     
-    public ArrayList<ColumnOfData> getDataSet() {
-        return dataSet; 
+    public ArrayList<ColumnOfData> getData() {
+        return data; 
     }
     
     public boolean runTheAnalysis() { return true; }

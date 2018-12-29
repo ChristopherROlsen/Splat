@@ -1,21 +1,20 @@
 /************************************************************
  *                      Explore_2Ind_Dialog                 *
- *                           11/10/18                       *
- *                            03:00                         *
+ *                           12/25/18                       *
+ *                            15:00                         *
  ***********************************************************/
 package dialogs;
 
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 public class Explore_2Ind_Dialog extends Two_Variables_Dialog{ 
     
-    public Explore_2Ind_Dialog(Splat_DataManager dm, String variableType) {
+    public Explore_2Ind_Dialog(Data_Manager dm, String variableType) {
         super(dm, "QUANTITATIVE", "QUANTITATIVE");
-        
-        minSampleSize = 3;
         lbl_Title.setText("Explore 2 Independent variables");
-        lblFirstVar.setText("1st Variable:");
-        lblSecondVar.setText("2nd Variable:");
+        lblFirstVar.setText("Title for graphs:");
+        gridChoicesMade.getChildren().remove(lblResponseVar);
+        gridChoicesMade.getChildren().remove(tfResponseVar);
         setTitle("Explore 2 Independent Variables");
         showAndWait();
     }  

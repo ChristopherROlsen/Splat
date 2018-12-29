@@ -5,6 +5,7 @@
  *************************************************/
 package dialogs;
 
+import dataObjects.ColumnOfData;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
@@ -46,7 +47,7 @@ public class MultReg_Dialog extends Splat_Dialog {
     // POJOs / FX
     private Stage dialogStage;
 
-    public MultReg_Dialog(Splat_DataManager myData) {
+    public MultReg_Dialog(Data_Manager myData) {
         super(myData);
         msgDiag = new MyDialogs();
         ivSelected = new ArrayList();
@@ -68,7 +69,7 @@ public class MultReg_Dialog extends Splat_Dialog {
         vList1.setAlignment(Pos.TOP_LEFT);
         Label vLabel1 = new Label("Variables in Data:");
         vLabel1.setPadding(new Insets(0, 0, 5, 0));
-        Splat_VarList varList1 = new Splat_VarList(myData, false, null, null);
+        Var_List varList1 = new Var_List(myData, false, null, null);
         vList1.getChildren().add(vLabel1);
         vList1.getChildren().add(varList1.getPane());
         vList1.setPadding(new Insets(0, 10, 0, 10));
@@ -81,7 +82,7 @@ public class MultReg_Dialog extends Splat_Dialog {
         vList2.setAlignment(Pos.TOP_LEFT);
         Label vLabel2 = new Label("Predictor Variable(s)");
         vLabel2.setPadding(new Insets(0, 0, 5, 0));
-        Splat_VarList varList2 = new Splat_VarList(myData, false, 125.0, 125.0);
+        Var_List varList2 = new Var_List(myData, false, 125.0, 125.0);
         varList2.clearList();
         vList2.getChildren().add(vLabel2);
         vList2.getChildren().add(varList2.getPane());

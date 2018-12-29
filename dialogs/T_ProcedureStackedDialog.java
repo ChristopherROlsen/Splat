@@ -5,12 +5,12 @@
  ***********************************************************/
 package dialogs;
 
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 // **************   Called by independent t procedure *****************
 public class T_ProcedureStackedDialog extends Two_Variables_Dialog{ 
     
-    public T_ProcedureStackedDialog(Splat_DataManager dm) {
+    public T_ProcedureStackedDialog(Data_Manager dm) {
         super(dm, "Categorical", "Quantitative");
         
         minSampleSize = 3;

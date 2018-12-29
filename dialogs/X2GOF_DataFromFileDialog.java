@@ -5,7 +5,7 @@
  ******************************************************************************/
 package dialogs;
 
-import genericClasses.MyAlerts;
+import utilityClasses.MyAlerts;
 import chiSquare.X2GOF_DataDialogObj;
 import java.util.ArrayList;
 import java.util.Optional;

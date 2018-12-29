@@ -51,7 +51,7 @@ public class TwoFactor_Dialog extends Splat_Dialog {
     private TextField colNameText, rowNameText, numColsText, numRowsText;
     private TextField[][] varNameText;
     
-    public TwoFactor_Dialog( Splat_DataManager dm, String typeOfTwoFactor) {
+    public TwoFactor_Dialog( Data_Manager dm, String typeOfTwoFactor) {
         super(dm);
         System.out.println("56 TwoFactor_Dialog");
        designType = typeOfTwoFactor; 
@@ -94,7 +94,7 @@ public class TwoFactor_Dialog extends Splat_Dialog {
         vList1.setAlignment(Pos.TOP_LEFT);
         Label vlable1 = new Label("Variables in Data:");
         vlable1.setPadding(new Insets(0, 0, 5, 0));
-        Splat_VarList varList1 = new Splat_VarList(dm, false, null, null);
+        Var_List varList1 = new Var_List(dm, false, null, null);
         vList1.getChildren().add(vlable1);
         vList1.getChildren().add(varList1.getPane());
         vList1.setPadding(new Insets(0, 10, 0, 10));

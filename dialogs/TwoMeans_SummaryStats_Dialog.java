@@ -5,6 +5,8 @@
  ***********************************************************/
 package dialogs;
 
+import utilityClasses.StringUtilities;
+import utilityClasses.DataUtilities;
 import java.util.ArrayList;
 import java.util.Optional;
 import javafx.beans.value.ChangeListener;

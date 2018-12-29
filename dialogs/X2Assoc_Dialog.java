@@ -5,11 +5,11 @@
  ***********************************************************/
 package dialogs;
 
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 public class X2Assoc_Dialog extends Two_Variables_Dialog{ 
     
-    public X2Assoc_Dialog(Splat_DataManager myData, String variableType) {
+    public X2Assoc_Dialog(Data_Manager myData, String variableType) {
         super(myData, "Categorical", "Categorical");
         minSampleSize = 3;
         lbl_Title.setText("Chi square association");

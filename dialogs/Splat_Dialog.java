@@ -15,18 +15,18 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 public class Splat_Dialog extends Stage {
     
     public Button okButton, cancelButton;
     public String css, returnStatus;
-    Splat_DataManager dm;
+    Data_Manager dm;
     
     public Splat_Dialog() { initialize(); }
     
     
-    public Splat_Dialog(Splat_DataManager dm) {
+    public Splat_Dialog(Data_Manager dm) {
         this.dm = dm;
         initialize();
     }

@@ -1,13 +1,13 @@
 /************************************************************
  *                    One_Variable_Dialog                  *
- *                          12/09/18                        *
- *                            18:00                         *
+ *                          12/25/18                        *
+ *                            15:00                         *
  ***********************************************************/
 package dialogs;
 
-import genericClasses.ColumnOfData;
-import genericClasses.DataCleaner;
-import java.util.ArrayList;
+import dataObjects.ColumnOfData;
+import javafx.beans.value.ObservableValue;
+import utilityClasses.DataCleaner;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,8 +23,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import splat.Splat_DataManager;
-import splat.Splat_VarList;
+import splat.Data_Manager;
+import splat.Var_List;
 
 public class One_Variable_Dialog extends Splat_Dialog {
     // POJOs
@@ -34,10 +34,10 @@ public class One_Variable_Dialog extends Splat_Dialog {
     
     String var_1_DataType;
     public String strVarLabel;
-    
+    String descriptionOfVariable, subTitle;
     // My classes
     public ColumnOfData dataColumn;
-    Splat_VarList listOfVars;    
+    Var_List listOfVars;    
     
     // POJOs / FX
     public Button resetButton, selectXVariable;
@@ -46,15 +46,15 @@ public class One_Variable_Dialog extends Splat_Dialog {
     public HBox middlePanel, dataDescriptions;
     public VBox mainPanel, leftPanel, rightPanel, vBoxVars2ChooseFrom, 
                 vBoxXVarChoices;
-    public Label lbl_Title, lbl_VarsInData, lblFirstVar; 
+    public Label lbl_Title, lbl_VarsInData, lblFirstVar, lblExplanVar; 
     public Label lbl_QuantReal, lbl_QuantInt, lbl_Categorical;
     
     public Rectangle quantReal, quantInt, categorical;
-    public TextField tf_FirstVar;
+    public TextField tf_FirstVar, tfExplanVar;
 
 
     
-    One_Variable_Dialog(Splat_DataManager dm, String var_1_DataType) {
+    One_Variable_Dialog(Data_Manager dm, String var_1_DataType) {
         super(dm);
         this.dm = dm;
         this.var_1_DataType = var_1_DataType;
@@ -84,7 +84,7 @@ public class One_Variable_Dialog extends Splat_Dialog {
         vBoxVars2ChooseFrom.setAlignment(Pos.TOP_LEFT);
         lbl_VarsInData = new Label("Variables in Data:");
         lbl_VarsInData.setPadding(new Insets(0, 0, 5, 0));
-        listOfVars = new Splat_VarList(dm, true, null, null);
+        listOfVars = new Var_List(dm, true, null, null);
         vBoxVars2ChooseFrom.getChildren().add(lbl_VarsInData);
         vBoxVars2ChooseFrom.getChildren().add(listOfVars.getPane());
         vBoxVars2ChooseFrom.setPadding(new Insets(0, 10, 0, 10));
@@ -98,12 +98,21 @@ public class One_Variable_Dialog extends Splat_Dialog {
         tf_FirstVar = new TextField("");
         tf_FirstVar.setPrefWidth(125.0);
         vBoxXVarChoices.getChildren().addAll(lblFirstVar, tf_FirstVar);
-
+        
+        lblExplanVar =   new Label(" Description of Variable: ");
+        tfExplanVar = new TextField("Description of Variable");
+        tfExplanVar.setPrefColumnCount(15);
+        tfExplanVar.textProperty().addListener(this::changeExplanVar);
+                
         gridChoicesMade = new GridPane();
         gridChoicesMade.setHgap(10);
         gridChoicesMade.setVgap(15);
         gridChoicesMade.add(selectXVariable, 0, 0);
         gridChoicesMade.add(vBoxXVarChoices, 1, 0);
+        
+        gridChoicesMade.add(lblExplanVar, 0, 3);
+        gridChoicesMade.add(tfExplanVar, 1, 3);      
+                
         GridPane.setValignment(selectXVariable, VPos.BOTTOM);
         gridChoicesMade.setPadding(new Insets(0, 10, 0, 0));
 
@@ -191,6 +200,8 @@ public class One_Variable_Dialog extends Splat_Dialog {
                     close();
                 }
             }
+            descriptionOfVariable = tfExplanVar.getText();
+            subTitle = "Variable: " + descriptionOfVariable;            
         });       
     }
     
@@ -216,6 +227,14 @@ public class One_Variable_Dialog extends Splat_Dialog {
         } 
         dm.resetTheGrid(); 
     }
+    
+        public void changeExplanVar(ObservableValue<? extends String> prop,
+                String oldValue,
+                String newValue) {
+                tfExplanVar.setText(newValue); 
+        }
+        
+    public String getDescriptionOfVariable() { return descriptionOfVariable; }
     
     public ColumnOfData getData() {
         return dataColumn;

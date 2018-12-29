@@ -6,11 +6,11 @@
 package dialogs;
 
 import javafx.scene.control.CheckBox;
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 public class X2GOFOneVar_Dialog extends One_Variable_Dialog{ 
     
-    public X2GOFOneVar_Dialog(Splat_DataManager myData, String variableType) {
+    public X2GOFOneVar_Dialog(Data_Manager myData, String variableType) {
         super(myData, "CATEGORICAL"); 
         System.out.println("16 X2Gof1Var");
         minSampleSize = 3;

@@ -5,11 +5,11 @@
  ***********************************************************/
 package dialogs;
 
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 public class ANOVA1_Stacked_Dialog extends Two_Variables_Dialog{ 
     
-    public ANOVA1_Stacked_Dialog(Splat_DataManager dm) {
+    public ANOVA1_Stacked_Dialog(Data_Manager dm) {
         super(dm, "Categorical", "Quantitative");
         
         minSampleSize = 3;
