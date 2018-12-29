@@ -1,6 +1,6 @@
 /**************************************************
  *                 Residuals_View                 *
- *                    10/14/18                    *
+ *                    12/25/18                    *
  *                      12:00                     *
  *************************************************/
 package regressionSimple;
@@ -30,7 +30,7 @@ public class Residuals_View extends Scatterplot_W_CheckBoxes_View
     Line line;
     Pane theContainingPane;
     
-    public Residuals_View(Regression_Model regModel, Regression_Dashboard regDashboard,
+    public Residuals_View(Regression_Model regModel, Simple_Regression_Dashboard regDashboard,
                         double placeHoriz, double placeVert,
                         double withThisWidth, double withThisHeight) {
         
@@ -50,7 +50,8 @@ public class Residuals_View extends Scatterplot_W_CheckBoxes_View
         scatterPlotCheckBoxDescr[2] = " Influential points ";
         
         txtTitle1 = new Text(50, 25, " Residual plot ");
-        txtTitle2 = new Text (60, 45, " Residual plot ");
+        String strTxtTitle2 = "Residuals vs. " + regModel.getExplanatoryVariable();
+        txtTitle2 = new Text (60, 45, strTxtTitle2);
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
 
@@ -104,7 +105,6 @@ public class Residuals_View extends Scatterplot_W_CheckBoxes_View
         setUpUI();       
         setUpAnchorPane();
         setHandlers();
-        yAxis.setLabel("Residuals");
         doTheGraph();   
         
         theContainingPane = dragableAnchorPane.getTheContainingPane();       

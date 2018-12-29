@@ -6,7 +6,7 @@
 package regressionSimple;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import genericClasses.PrintTextReport_View;
 import genericClasses.ResizableTextPane;
 
@@ -19,11 +19,11 @@ public class PrintDiagReport_View extends PrintTextReport_View {
     // My classes
     DragableAnchorPane dragableAnchorPane;
     StringUtilities myStringUtilities;  
-    Regression_Dashboard regrDashboard;
+    Simple_Regression_Dashboard regrDashboard;
     Regression_Model regrModel;
     ResizableTextPane rtp;
 
-    public PrintDiagReport_View(Regression_Model regrModel,  Regression_Dashboard regrDashboard,
+    public PrintDiagReport_View(Regression_Model regrModel,  Simple_Regression_Dashboard regrDashboard,
                         double placeHoriz, double placeVert,
                         double withThisWidth, double withThisHeight) {
         super(placeHoriz, placeVert, withThisWidth, withThisHeight);

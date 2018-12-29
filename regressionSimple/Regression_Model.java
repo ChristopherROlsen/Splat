@@ -1,7 +1,7 @@
 /**************************************************
  *                Regression_Model                *
- *                    10/07/18                    *
- *                     00:00                      *
+ *                    12/25/18                    *
+ *                     12:00                      *
  *************************************************/
 
 /***************************************************
@@ -18,7 +18,8 @@ package regressionSimple;
 
 import genericClasses.ResizableTextPane;
 import matrixProcedures.Matrix;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
+import utilityClasses.StringUtilities;
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -35,13 +36,15 @@ public class Regression_Model
     static int n, p, k, dfReg, dfResid, dfTotal;
     static int nColumns, nRows, theYVariable; //  In original data array
 
-    double meanY, ssTotal, ssResid, ssReg, sumY2_Over_n, msReg, msResid, 
+    private double meanY, ssTotal, ssResid, ssReg, sumY2_Over_n, msReg, msResid, 
            fStatistic, pValue_F, s, r2, adj_r2, paramEst, paramStdErr, 
            paramTRatio, paramPValue;
 
-    String lineToPrint, sourceString;
+    private String lineToPrint, sourceString, explanatoryVariable, responseVariable, 
+           respVsExplanVar, saveTheResids;
     String[] str_DataLabels;
-    String paramTerm[];
+    // String paramTerm[];
+    String[] paramTerm;
     ArrayList<String> regressionReport, regressionDiagnostics;
     
     // My classes
@@ -68,7 +71,11 @@ public class Regression_Model
     
     public Regression_Model(Regression_Procedure regression_Procedure)
     {   
-        Regression_Model.regression_Procedure = regression_Procedure;
+        this.regression_Procedure = regression_Procedure;
+        explanatoryVariable = regression_Procedure.getExplanVar();
+        responseVariable = regression_Procedure.getResponseVar();
+        respVsExplanVar = regression_Procedure.getSubTitle();
+        saveTheResids = regression_Procedure.getSaveTheResids();
     }
     
     //  The QDVs are needed for labels
@@ -194,6 +201,9 @@ public class Regression_Model
            PValue_T.set(predictors, 0, 2.0 * tDist.getRightTailArea(Math.abs(tStat.get(predictors, 0))));
         }
         qdv_Resids = new QuantitativeDataVariable("Residuals", mat_Resids);
+        if (saveTheResids.equals("Yes")) {
+            regression_Procedure.getDataManager().addAColumn(qdv_Resids);
+        }
         printStatistics();
    }
     
@@ -298,6 +308,9 @@ public class Regression_Model
 
         // Print equation on one line if simple regression
         if (k == 1)  {
+            String respVsExplan = StringUtilities.centerTextInString(regression_Procedure.getSubTitle(), 80);
+            regressionReport.add(respVsExplan);
+            addNBlankLinesToRegressionReport(2);
             sourceString0 = "The regression equation is:";
             sourceString1 = leftMostChars(paramTerm[2], 10) + " = ";
             sourceString2 = leftMostChars(paramTerm[1], 10);
@@ -390,6 +403,11 @@ public class Regression_Model
    public ArrayList<String> getDiagnostics() { return regressionDiagnostics; }   
    
    public int getNRows()    {return nRows;}
+   
+   public String getExplanatoryVariable() { return explanatoryVariable; }
+   public String getResonseVariable() { return responseVariable; }
+   
+   public String getRespVsExplSubtitle() { return respVsExplanVar; }
 
    public String[] getLabels() { return str_DataLabels; }
    public Matrix getXVar() {return XVar;}

@@ -8,7 +8,7 @@ package regressionSimple;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.Scatterplot_View;
+import superClasses.Scatterplot_View;
 import java.util.ArrayList;
 import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;
@@ -58,7 +58,7 @@ public class Regression_PDFView extends Scatterplot_View
     Pane tPdfContainingPane;
     Text txtTitle1, txtTitle2;
     
-    public Regression_PDFView(Regression_Model regression_Model, Regression_Dashboard regression_Dashboard, 
+    public Regression_PDFView(Regression_Model regression_Model, Simple_Regression_Dashboard regression_Dashboard, 
                         double placeHoriz, double placeVert,
                         double withThisWidth, double withThisHeight) {
 

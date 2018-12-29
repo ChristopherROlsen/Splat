@@ -1,7 +1,7 @@
 /**************************************************
  *                  BestFit_View                  *
- *                    10/14/18                    *
- *                      12:00                     *
+ *                    12/24/18                    *
+ *                      15:00                     *
  *************************************************/
 package regressionSimple;
 
@@ -31,13 +31,12 @@ public class BestFit_View extends Scatterplot_W_CheckBoxes_View
     Line line;
     Pane theContainingPane;
 
-    public BestFit_View(Regression_Model regModel, Regression_Dashboard regDashboard,
+    public BestFit_View(Regression_Model regModel, Simple_Regression_Dashboard regDashboard,
                         double placeHoriz, double placeVert,
                         double withThisWidth, double withThisHeight) {
         
         super(regModel, regDashboard, placeHoriz, placeVert,
                         withThisWidth, withThisHeight);
-        
         X = regModel.getXVar();
         Y = regModel.getY();
 
@@ -53,7 +52,7 @@ public class BestFit_View extends Scatterplot_W_CheckBoxes_View
         scatterPlotCheckBoxDescr[2] = " Influential points ";
         
         txtTitle1 = new Text(50, 25, " Scatterplot ");
-        txtTitle2 = new Text (60, 45, " Scatterplot ");
+        txtTitle2 = new Text (60, 45, regModel.getRespVsExplSubtitle());
         
         radius = 4.0; diameter = 2.0 * radius;  //  For the dots
         outlierCircleRadius = 1.75;  // drawing factor 

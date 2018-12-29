@@ -5,7 +5,7 @@
  ***************************************************************************/
 package regressionSimple;
 
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import genericClasses.PrintTextReport_View;
 
 public class PrintRegrReport_View extends PrintTextReport_View {
@@ -15,10 +15,10 @@ public class PrintRegrReport_View extends PrintTextReport_View {
     
     // My classes
     StringUtilities myStringUtilities;  
-    Regression_Dashboard regrDashboard;
+    Simple_Regression_Dashboard regrDashboard;
     Regression_Model regrModel;
    
-    public PrintRegrReport_View(Regression_Model regrModel,  Regression_Dashboard regrDashboard,
+    public PrintRegrReport_View(Regression_Model regrModel,  Simple_Regression_Dashboard regrDashboard,
                         double placeHoriz, double placeVert,
                         double withThisWidth, double withThisHeight) {
         super(placeHoriz, placeVert, withThisWidth, withThisHeight);

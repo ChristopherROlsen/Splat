@@ -1,8 +1,8 @@
-/**************************************************
- *           Scatterplot_W_CheckBoxes_View        *
- *                    12/13/18                    *
- *                      21:00                     *
- *************************************************/
+// **************************************************
+// *           Scatterplot_W_CheckBoxes_View        *
+// *                    12/24/18                    *
+// *                      15:00                     *
+// *************************************************/
 
 // *******************************************************************
 // *   Subclasses:                                                   *
@@ -12,6 +12,7 @@
 // *******************************************************************
 package regressionSimple;
 
+import superClasses.Scatterplot_View;
 import ANOVA_One.QANOVA1_Dashboard;
 import ANOVA_One.QANOVA1_Model;
 import genericClasses.DragableAnchorPane;
@@ -25,7 +26,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import matrixProcedures.Matrix;
 import javafx.scene.paint.Color;
-import genericClasses.*;
 import regressionLogistic.*;
 
 public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
@@ -34,6 +34,8 @@ public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
     public boolean[] checkBoxSettings;
     
     public double radius, diameter;
+    
+    // public String explanatoryVariable, responseVariable;
     
     Logistic_Model logRegModel;
     Logistic_Dashboard logisticDashboard;
@@ -46,6 +48,7 @@ public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
     final public int NUMBER_OF_DXs = 600;   
     public int nDataPoints, nCheckBoxes;
     
+    public String respVsExplanVar;
     public String[] scatterPlotCheckBoxDescr;
 
     // My classes
@@ -53,7 +56,7 @@ public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
     public CheckBox[] scatterPlotCheckBoxes;
 
     public Matrix X, Y;
-    Regression_Dashboard regrDashboard;
+    Simple_Regression_Dashboard regrDashboard;
     Regression_Model regrModel;
 
     //  POJO / FX
@@ -61,7 +64,7 @@ public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
     Pane regrContainingPane;
     public Text txtTitle1, txtTitle2;
 
-    public Scatterplot_W_CheckBoxes_View(Regression_Model regModel, Regression_Dashboard regDashboard,
+    public Scatterplot_W_CheckBoxes_View(Regression_Model regModel, Simple_Regression_Dashboard regDashboard,
                         double placeHoriz, double placeVert,
                         double withThisWidth, double withThisHeight) {
         super(placeHoriz, placeVert, withThisWidth, withThisHeight);
@@ -69,8 +72,7 @@ public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.regrModel = regModel;
         this.regrDashboard = regDashboard;
-        xAxisLabel = regModel.getXVariable().getDataLabel();
-        yAxisLabel = regModel.getYVariable().getDataLabel();
+        respVsExplanVar = regModel.getRespVsExplSubtitle();
         nDataPoints = regrModel.getNRows();
     } 
     
@@ -83,9 +85,6 @@ public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.logRegModel = logRegModel;
         this.logisticDashboard = logisticDashboard; 
-        
-        xAxisLabel = logRegModel.getXAxisLabel();
-        yAxisLabel = "Probability";
     } 
     
     public Scatterplot_W_CheckBoxes_View(QANOVA1_Model qanova1Model, QANOVA1_Dashboard anova1Dashboard,
@@ -97,18 +96,9 @@ public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
         initWidth = withThisWidth; initHeight = withThisHeight; 
         this.qanova1Model = qanova1Model;
         this.anova1Dashboard = anova1Dashboard; 
-        
-        xAxisLabel = qanova1Model.getXAxisLabel();
-        
-        //allTheLabels = qanova1Model.getCategoryLabels();
-       // System.out.println("44 crcPlotView, allTheLabels = " + allTheLabels);
-        
-        yAxisLabel = "Probability";
     } 
 
     public void setUpUI() {
-        //txtTitle1 = new Text(50, 25, " Scatterplot ");
-        //txtTitle2 = new Text (60, 45, " Scatterplot ");
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
     }
@@ -117,10 +107,8 @@ public class Scatterplot_W_CheckBoxes_View extends Scatterplot_View
         constructDataArray();
         xAxis = new genericClasses.JustAnAxis(xDataMin, xDataMax);
         xAxis.setSide(Side.BOTTOM); 
-        xAxis.setLabel(xAxisLabel);
         yAxis = new genericClasses.JustAnAxis(yDataMin, yDataMax);
         yAxis.setSide(Side.LEFT);
-        yAxis.setLabel(yAxisLabel);
         newX_Lower = xDataMin; newX_Upper = xDataMax;
         newY_Lower = yDataMin; newY_Upper = yDataMax;
         xAxis.setLowerBound(newX_Lower ); 
