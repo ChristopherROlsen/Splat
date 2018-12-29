@@ -5,6 +5,9 @@
  *************************************************/
 package genericClasses;
 
+import dataObjects.UnivariateContinDataObj;
+import dataObjects.QuantitativeDataVariable;
+import dataObjects.CatQuantPair;
 import java.util.ArrayList;
 
 /**************************************************

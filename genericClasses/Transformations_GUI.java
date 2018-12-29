@@ -1,11 +1,14 @@
 /************************************************************
  *                    Transformations_GUI                   *
- *                          09/09/18                        *
- *                            21:00                         *
+ *                          12/26/18                        *
+ *                            00:00                         *
  ***********************************************************/
 
 package genericClasses;
 
+import utilityClasses.Transformations_Calculations;
+import dataObjects.ColumnOfData;
+import dataObjects.QuantitativeDataVariable;
 import splat.PositionTracker;
 import java.util.ArrayList;
 import javafx.beans.binding.Bindings;
@@ -53,8 +56,8 @@ public class Transformations_GUI {
     ObservableList<String> variableNames, functionNames, operationNames;
    
     // My classes
-    Splat_DataManager myData;
-    PositionTracker waldo;
+    Data_Manager myData;
+    PositionTracker positionTracker;
     SmartTextField stfUnaryFunctions;  //  ???  What do these do?
     SmartTextField[] stfLinearTransformation, stfLinearCombination, stfLinearTransformationFunctions;
     ArrayList<SmartTextField> linTransVarsPanel, linComVarsPanel, 
@@ -80,11 +83,11 @@ public class Transformations_GUI {
     private final DoubleProperty fontSize = new SimpleDoubleProperty(10);
     private final IntegerProperty color = new SimpleIntegerProperty(50);
     
-    public Transformations_GUI(Splat_DataManager myData) {
+    public Transformations_GUI(Data_Manager myData) {
         this.myData = myData;
-        waldo = myData.getPositionTracker();
-        numVars = waldo.getNVarsInStruct();
-        nOriginalDataPoints = waldo.getNCasesInStruct();
+        positionTracker = myData.getPositionTracker();
+        numVars = positionTracker.getNVarsInStruct();
+        nOriginalDataPoints = positionTracker.getNCasesInStruct();
         varNames = new String[numVars];
 
         for (int i = 0; i < numVars; i++) {
@@ -628,10 +631,9 @@ public class Transformations_GUI {
     }
     
     private void addVarToStructure() {
-        // myData.sendGridToDataStruct();
         int col;     
         ColumnOfData theNewColumn;
-        col = waldo.getNVarsInStruct();
+        col = positionTracker.getNVarsInStruct();
         myData.addNVariables(1);  
         myData.setVariableNameInStruct(col, tfNewVariable.getText());
         //System.out.println("637 Trans_GUI, col = " + col);
@@ -641,7 +643,6 @@ public class Transformations_GUI {
         for (int cases = 0; cases < columnSize; cases++) {
             myData.setDataElementInStruct(col, cases, strTransformedData[cases]);
             String tempString = myData.getDataElementFromStruct(col, cases);
-            //System.out.println("643 Trans_GUI, tempString = " + tempString);
         }
         myData.sendDataStructToGrid();
     }
