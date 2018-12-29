@@ -6,7 +6,7 @@
 package regressionLogistic;
 
 import genericClasses.DragableAnchorPane;
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import genericClasses.PrintTextReport_View;
 import genericClasses.ResizableTextPane;
 

@@ -1,20 +1,20 @@
 /************************************************************
  *                     Logistic_Procedure                   *
- *                          09/02/18                        *
- *                            12:00                         *
+ *                          12/24/18                        *
+ *                            15:00                         *
  ***********************************************************/
 package regressionLogistic;
 
 import dialogs.Logistic_Dialog;
-import genericClasses.BivariateContinDataObj;
-import genericClasses.ColumnOfData;
+import dataObjects.BivariateContinDataObj;
+import dataObjects.ColumnOfData;
 import java.util.ArrayList;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import matrixProcedures.Matrix;
-import splat.Splat_DataManager;
+import splat.Data_Manager;
 
 public class Logistic_Procedure {
     // POJOs
@@ -24,10 +24,8 @@ public class Logistic_Procedure {
     
     double[] finalCategories, dbl_xValue, props_OF_Xs;
     double[][] rawData, initialUniques;    
-    String returnStatus, horizAxisLabel;
+    String returnStatus, explanVar, respVar, respVsExplanVar, defNTotal;
     String[] strDistinctTableLabels, dataXYLabels;
-    String explanVar, defNSuccesses, defNTotal;
-    String definitionOfSuccess;
     
     ArrayList<String> uniques, strXVar, strYVar, xStrings, yStrings;
 
@@ -38,36 +36,36 @@ public class Logistic_Procedure {
     private Logistic_Dashboard logRegDashboard;
     Matrix X, Y;
     QuantitativeDataVariable qdv_XVariable, qdv_YVariable;
-    Splat_DataManager myData;
+    Data_Manager dm;
     
-    public Logistic_Procedure(Splat_DataManager myData) {
-        this.myData = myData;       
+    public Logistic_Procedure(Data_Manager dm) {
+        this.dm = dm;       
     }  
         
     public String doTheProcedure() {
         try {
-            Logistic_Dialog logistic_Dialog = new Logistic_Dialog(myData, "QUANTITATIVE");
+            Logistic_Dialog logistic_Dialog = new Logistic_Dialog(dm, "QUANTITATIVE");
             returnStatus = logistic_Dialog.getReturnStatus();
             if (!returnStatus.equals("Ok")) {
                 return returnStatus;
             }
-
+            
+            respVsExplanVar = logistic_Dialog.getSubTitle();
             ArrayList<ColumnOfData> data = logistic_Dialog.getData();
             qdv_XVariable = new QuantitativeDataVariable(data.get(0));
             qdv_YVariable = new QuantitativeDataVariable(data.get(1)); 
-            definitionOfSuccess = logistic_Dialog.getSuccessDef();
 
             // Transfer to previously coded variables
             dataXYLabels = new String[2];
             explanVar = qdv_XVariable.getDataLabel();
             dataXYLabels[0] = explanVar;
-            dataXYLabels[1] = "Probability of " + definitionOfSuccess; 
+            dataXYLabels[1] = "Probability of "; 
 
             strDistinctTableLabels = new String[4];
             strDistinctTableLabels[0] = explanVar;
-            strDistinctTableLabels[1] = "# " + definitionOfSuccess; 
+            strDistinctTableLabels[1] = "N Successes "; 
             strDistinctTableLabels[2] = "N values"; 
-            strDistinctTableLabels[3] = "Prop of " + definitionOfSuccess; 
+            strDistinctTableLabels[3] = "Prop Success"; 
 
             bivContin = new BivariateContinDataObj(data);
 
@@ -182,8 +180,6 @@ public class Logistic_Procedure {
     
     public double[][] getDataMatrix() {return initialUniques; }
     
-    public String getXAxisLabel()  {return horizAxisLabel; } 
-    
     private void sortStrings() {    
         for (int i = 0; i < nPoints - 1; i++) {
             for (int j = i + 1; j < nPoints; j++) {
@@ -245,6 +241,9 @@ public class Logistic_Procedure {
             }
         }       
     }
+    public String getExplanVar() { return explanVar; }
+    public String getResponseVar() { return respVar; }
+    public String getRespVsExplSubtitle() { return respVsExplanVar; }
     
     public Matrix getMatrix_X() { return X; }
     public Matrix getMatrix_Y() { return Y; }
@@ -252,8 +251,6 @@ public class Logistic_Procedure {
     public QuantitativeDataVariable getQdvXVariable() { return qdv_XVariable; } 
     
     public String[] getCountTable() { return strDistinctTableLabels; }
-    
-    public String getDefOfSuccess() { return definitionOfSuccess; }
     
     public double[] getXValues() { return dbl_xValue; }
     

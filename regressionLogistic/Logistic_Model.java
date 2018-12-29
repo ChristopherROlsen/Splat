@@ -1,12 +1,12 @@
 /**************************************************
  *             LogisticRegressionModel            *
- *                    09/01/18                    *
- *                     06:00                      *
+ *                    12/24/18                    *
+ *                     15:00                      *
  *************************************************/
 
 package regressionLogistic;
 
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import matrixProcedures.Matrix;
 import probabilityDistributions.*;
@@ -43,7 +43,7 @@ public class Logistic_Model {
               logitProps, expectedSuccesses; 
     double beta0, beta1, seBeta0, seBeta1, covBetas;
     
-    String defOfSuccess;
+    String defOfSuccess, respVsExplanVar;
     
     StandardNormal standNorm;
     ChiSquareDistribution chiSqDist;
@@ -66,10 +66,9 @@ public class Logistic_Model {
         this.logisticProcedure = logisticProcedure;
         convergenceReached = false;
         nDataPoints = logisticProcedure.getNPoints();
-        defOfSuccess = logisticProcedure.getDefOfSuccess();
-        // Build the necessary arrays
+        respVsExplanVar = logisticProcedure.getRespVsExplSubtitle();
+
         mat_DataMatrix = new Matrix (logisticProcedure.getDataMatrix());
-        xAxisLabel = logisticProcedure.getXAxisLabel();
         nRows = mat_DataMatrix.getRowDimension();
 
         nObservations = new double[nRows];
@@ -419,5 +418,7 @@ public class Logistic_Model {
    public ArrayList<String> getDiagnostics() { return logisticDiagnostics; }
    public Matrix getDevianceResids() { return devResids; }
    public Matrix getEstimatedProbs() { return estProbs; }
+   
+   public String getRespVsExplSubtitle() { return respVsExplanVar; }
    
 }

@@ -5,9 +5,9 @@
  *************************************************/
 package regressionLogistic;
 
-import genericClasses.Dashboard;
+import superClasses.Dashboard;
 import genericClasses.DragableAnchorPane;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -46,7 +46,7 @@ public class Logistic_Dashboard extends Dashboard {
         this.logistic_Model = logistic_Model;
         qdv_Resids = new QuantitativeDataVariable();
         qdv_Resids = logistic_Model.getQDVResids();
-        normProb_Model = new NormProb_Model(qdv_Resids);
+        normProb_Model = new NormProb_Model("Residuals", qdv_Resids);
         
         checkBoxDescr = new String[nCheckBoxes];
         for (int ithCheckBox = 0; ithCheckBox < nCheckBoxes; ithCheckBox++) {

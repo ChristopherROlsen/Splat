@@ -5,7 +5,7 @@
  ***************************************************************************/
 package regressionLogistic;
 
-import genericClasses.StringUtilities;
+import utilityClasses.StringUtilities;
 import genericClasses.PrintTextReport_View;
 
 public class PrintLogisticReport_View extends PrintTextReport_View {

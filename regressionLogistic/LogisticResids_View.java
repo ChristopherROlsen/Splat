@@ -43,7 +43,8 @@ public class LogisticResids_View extends RegressionWithoutCheckBoxes_View
         dotDiameter = 6.0;
         
         txtTitle1 = new Text(50, 25, " Residual plot ");
-        txtTitle2 = new Text (60, 45, " Residual plot ");
+        String strTxtTitle2 = "Deviance residuals vs. " + logisticModel.getLogisticProcedure().getExplanVar();
+        txtTitle2 = new Text (60, 45, strTxtTitle2);
         txtTitle1.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,20));
         txtTitle2.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR,15)); 
 
@@ -54,7 +55,7 @@ public class LogisticResids_View extends RegressionWithoutCheckBoxes_View
         makeItHappen();
     }  
   
-        public void makeItHappen() {       
+        private void makeItHappen() {       
         
         theContainingPane = new Pane();
 

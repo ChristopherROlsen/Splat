@@ -5,6 +5,7 @@
  *************************************************/
 package regressionLogistic;
 
+import superClasses.Scatterplot_View;
 import genericClasses.DragableAnchorPane;
 import javafx.geometry.Side;
 import javafx.scene.text.Font;
@@ -18,7 +19,6 @@ import genericClasses.*;
 
 public class RegressionWithoutCheckBoxes_View extends Scatterplot_View
 {
-
     public boolean[] checkBoxSettings;
     public double radius, diameter;
     

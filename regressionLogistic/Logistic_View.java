@@ -69,7 +69,7 @@ public class Logistic_View extends Scatterplot_W_CheckBoxes_View
         scatterPlotCheckBoxDescr[2] = "   Distr 0/ 1's    ";
         
         txtTitle1 = new Text(50, 25, " Logistic plot ");
-        txtTitle2 = new Text (60, 45, " Logistic plot ");
+        txtTitle2 = new Text (60, 45, logRegModel.getRespVsExplSubtitle());
         
         radius = 4.0; diameter = 2.0 * radius;  //  For the dots
         
@@ -83,7 +83,7 @@ public class Logistic_View extends Scatterplot_W_CheckBoxes_View
             dataArray[ithPoint][1] = Y.get(ithPoint, 0);
         }
         
-        xAxisLabel = logRegModel.getXAxisLabel();
+        // xAxisLabel = logRegModel.getXAxisLabel();
         beta0 = logRegModel.getBeta0();
         beta1 = logRegModel.getBeta1();
 
