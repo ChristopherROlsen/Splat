@@ -21,7 +21,7 @@ public class Splat extends Application {
     int initialGridColumns = 6;
     int initialGridRows = 14;
     // My classes
-    Splat_DataManager dm;
+    Data_Manager dm;
     
     // POJOs / FX
     
@@ -29,10 +29,10 @@ public class Splat extends Application {
     public void start(Stage primaryStage) {
 
         //                   initialGridCols, initialGridVars
-        dm = new Splat_DataManager(initialGridRows, initialGridColumns);
+        dm = new Data_Manager(initialGridRows, initialGridColumns);
         
         Label fileLabel = new Label("File: ");
-        Splat_MainMenu myMenus = new Splat_MainMenu(this, dm, fileLabel);
+        MainMenu myMenus = new MainMenu(this, dm, fileLabel);
         BorderPane myGrid = new BorderPane();
         myGrid = dm.getMainPane();
         VBox mainPane = new VBox();
@@ -75,7 +75,7 @@ public class Splat extends Application {
             @Override
             public void handle(WindowEvent event) {
                 event.consume();
-                Splat_FileOps runMe = new Splat_FileOps(dm);
+                File_Ops runMe = new File_Ops(dm);
                 runMe.ExitProgram(dm);
             }
         });

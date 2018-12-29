@@ -8,7 +8,7 @@
 
 package splat;
 
-import genericClasses.DataUtilities;
+import utilityClasses.DataUtilities;
 import java.util.ArrayList;
 import java.util.Arrays;
 

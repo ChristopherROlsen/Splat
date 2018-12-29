@@ -17,6 +17,7 @@
 // be coded with xxx + 1 subscripts.
 
 package splat;
+import dataObjects.CoordPairOfIntegers;
 import genericClasses.*;
 
 public class PositionTracker {
@@ -35,8 +36,8 @@ public class PositionTracker {
     
     int nVarsToAdd, nCasesToAdd;
     
-    Splat_DataGrid dg;
-    Splat_DataManager dm;
+    Data_Grid dg;
+    Data_Manager dm;
     
     int firstCaseInGrid, lastCaseInGrid, firstVarInGrid, lastVarInGrid;
     int nCasesInGrid, nVarsInGrid;
@@ -44,10 +45,10 @@ public class PositionTracker {
     public PositionTracker() { }    //  Needed by Var_List??
 
     // Establishes a graphical window for the display of the data under consideration (??).
-    public PositionTracker(Splat_DataManager dm, int max_var, int max_case) {
+    public PositionTracker(Data_Manager dm, int max_var, int max_case) {
         maxCasesInGrid = max_case;
         maxVarsInGrid = max_var;
-        //System.out.println("50 pt, PositionTracker(Splat_DataManager dm, int max_var, int max_case)");
+        //System.out.println("50 pt, PositionTracker(Data_Manager dm, int max_var, int max_case)");
         this.dm = dm;
         cpi_lrDG = new CoordPairOfIntegers();
         cpi_ulDG = new CoordPairOfIntegers();
@@ -85,7 +86,7 @@ public class PositionTracker {
     public void updateMaxCases(int newMax) { maxCasesInGrid = newMax; }
     public void updateMaxVars(int newMax) { maxVarsInGrid = newMax;}
     
-    public void setTrackerDataGrid(Splat_DataGrid dg) {this.dg = dg; }     
+    public void setTrackerDataGrid(Data_Grid dg) {this.dg = dg; }     
     
     public CoordPairOfIntegers get_ulDG() {return cpi_ulDG; } 
     public CoordPairOfIntegers get_lrDG() {return cpi_lrDG; }
@@ -246,25 +247,5 @@ public class PositionTracker {
         boolean cursorIsAtRightOfGrid = (cpi_CurrentDG.getCol() == maxVarsInGrid - 1);
         //System.out.println("247 pt, cursorIsAtRightOfGrid = " + cursorIsAtRightOfGrid);  
         return cursorIsAtRightOfGrid;       
-    }
-
-    /*
-    public boolean thereIsAnotherPageAbove() {
-        boolean anotherPageAbove = (firstCaseInGrid > maxCasesInGrid);
-        //System.out.println("254 pt anotherPageAbove = " + anotherPageAbove);       
-        return anotherPageAbove;
-    }
-     
-    public boolean thereIsAnotherPageBelow() {
-        boolean anotherPageBelow = ((firstCaseInGrid + maxCasesInGrid - 1) < cpi_lrDS.getRow());
-        //System.out.println("260 pt anotherPageBelow = " + anotherPageBelow);        
-        return anotherPageBelow;       
-    }
-    
-    public boolean thereIsAnotherPageToRight() {
-        boolean anotherPageToRight = ((firstVarInGrid + maxVarsInGrid - 1) < cpi_lrDS.getCol());
-        //System.out.println("266 pt anotherPageToRight = " + anotherPageToRight);
-        return anotherPageToRight;       
-    }
-*/  
+    } 
 }
