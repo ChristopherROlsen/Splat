@@ -5,8 +5,8 @@
  *************************************************/
 package t_Procedures;
 
-import genericClasses.Dashboard;
-import genericClasses.QuantitativeDataVariable;
+import superClasses.Dashboard;
+import dataObjects.QuantitativeDataVariable;
 import genericClasses.DragableAnchorPane;
 import java.util.ArrayList;
 import javafx.scene.control.CheckBox;
@@ -56,7 +56,7 @@ public class Indep_t_Dashboard extends Dashboard {
         vBox_Model = indep_t_prepStructs.getVBox_Model();
         qqPlot_Model = new QQPlot_Model();
         qqPlot_Model = indep_t_prepStructs.getQQ_Model();
-        bbsl_Model = new BBSL_Model(allTheQDVs);
+        bbsl_Model = new BBSL_Model(indep_t_prepStructs, "Null", allTheQDVs);
         bbsl_Model = indep_t_prepStructs.getBBSL_Model();
         indep_t_Model = indep_t_prepStructs.getIndepTModel();
         

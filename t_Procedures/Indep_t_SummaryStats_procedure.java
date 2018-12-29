@@ -5,7 +5,7 @@
  *************************************************/
 package t_Procedures;
 
-import genericClasses.CatQuantDataVariable;
+import dataObjects.CatQuantDataVariable;
 import javafx.scene.control.TextArea;
 import splat.*;
 import dialogs.*;
@@ -20,10 +20,10 @@ public class Indep_t_SummaryStats_procedure {
     CatQuantDataVariable cqdv;
     Indep_t_SummaryStats_Model independent_t_SummaryStats_Model;
     Indep_t_PrepStructs indep_t_prepStructs;    
-    Splat_DataManager dataManager;
+    Data_Manager dataManager;
     TextArea myText;
 
-    public Indep_t_SummaryStats_procedure(/* Splat_DataManager dataManager */) {
+    public Indep_t_SummaryStats_procedure(/* Data_Manager dataManager */) {
         // this.dataManager = dataManager;
     }
     

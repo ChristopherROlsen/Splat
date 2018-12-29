@@ -1,11 +1,11 @@
 /**************************************************
  *              Single_t_PrepareStructs           *
- *                    12/08/18                    *
+ *                    12/25/18                    *
  *                      12:00                     *
  *************************************************/
 package t_Procedures;
 
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import proceduresOneUnivariate.*;
 import proceduresTwoUnivariate.*;
 
@@ -14,6 +14,7 @@ public class Single_t_PrepStructs
     // POJOs
     int nUnchecked, nChecked;
     
+    String descriptionOfVariable;
     // My classes
     StemNLeaf_Model stemNLeaf_Model;
     private final Single_t_Dashboard single_t_Dashboard;
@@ -25,15 +26,15 @@ public class Single_t_PrepStructs
     Single_t_Model single_t_Model;
 
     public Single_t_PrepStructs(Single_t_procedure single_t_procedure, QuantitativeDataVariable theQDV) { 
-        
-        hBox_Model = new HorizontalBoxPlot_Model(theQDV);
-        vBox_Model = new VerticalBoxPlot_Model(theQDV);
+        // descriptionOfVariable = single_t_procedure.g
+        hBox_Model = new HorizontalBoxPlot_Model(descriptionOfVariable, theQDV);
+        vBox_Model = new VerticalBoxPlot_Model(descriptionOfVariable, theQDV);
         System.out.println("31 Constructing Single_t_PrepStructs");
         // ****************************************************************
         // *  The stemNLeaf_Model parameters are also supporting a back-  *
         // *  to-back stem and leaf plot.                                 *
         // ****************************************************************
-        stemNLeaf_Model = new StemNLeaf_Model(theQDV, false, 0, 0, 0);
+        stemNLeaf_Model = new StemNLeaf_Model("Null", theQDV, false, 0, 0, 0);
         this.single_t_procedure = single_t_procedure;
         single_t_Model = new Single_t_Model(single_t_procedure, theQDV);
         single_t_Model.doTAnalysis();

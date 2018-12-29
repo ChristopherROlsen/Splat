@@ -1,12 +1,12 @@
 /**************************************************
  *                Single_t_Procedure              *
- *                    12/08/18                    *
- *                     12:00                      *
+ *                    12/25/18                    *
+ *                     15:00                      *
  *************************************************/
 package t_Procedures;
 
-import genericClasses.ColumnOfData;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.ColumnOfData;
+import dataObjects.QuantitativeDataVariable;
 import javafx.scene.control.TextArea;
 import splat.*;
 import dialogs.*;
@@ -18,16 +18,16 @@ public class Single_t_procedure {
         
     // My classes
     ColumnOfData colOfData;
-    String varLabel;
+    String varLabel, descriptionOfVariable;
     Single_t_Dialog single_t_Dialog;
     Single_t_Model single_t_Model;
     Single_t_PrepStructs single_t_prepStructs;    
     QuantitativeDataVariable theQDV;
-    Splat_DataManager dm;
+    Data_Manager dm;
     TextArea myText;
 
     // ******  Constructor called from Main Menu  ******
-    public Single_t_procedure(Splat_DataManager dm) {
+    public Single_t_procedure(Data_Manager dm) {
         this.dm = dm; 
         System.out.println("32 Constructing Single_t_Proc");
     }
@@ -59,6 +59,7 @@ public class Single_t_procedure {
         // prob = new Distributions();
         ok = false;
         single_t_Dialog = new Single_t_Dialog(dm, "QUANTITATIVE");
+        descriptionOfVariable = single_t_Dialog.getDescriptionOfVariable();
         colOfData = single_t_Dialog.getData(); 
         theQDV = new QuantitativeDataVariable(colOfData);
         ok = doTheProcedure();
@@ -76,6 +77,7 @@ public class Single_t_procedure {
         return ok;        
     }
     
+    public String getDescriptionOfVariable() { return descriptionOfVariable; }
     public String getHypotheses() { return single_t_Dialog.getHypotheses(); }
     public double getHypothesizedMean() { return single_t_Dialog.getHypothesizedMean(); }
     public Single_t_PrepStructs getTStructs() { return single_t_prepStructs; }

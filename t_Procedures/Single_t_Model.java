@@ -6,7 +6,7 @@
 
 package t_Procedures;
 
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import probabilityDistributions.TDistribution;
 
 

@@ -1,11 +1,11 @@
 /**************************************************
  *            Independent_t_PrepareStructs        *
- *                    06/04/18                    *
+ *                    12/25/18                    *
  *                      15:00                     *
  *************************************************/
 package t_Procedures;
 
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import proceduresOneUnivariate.*;
 import proceduresTwoUnivariate.*;
@@ -27,10 +27,10 @@ public class Indep_t_PrepStructs
 
     public Indep_t_PrepStructs(Indep_t_procedure indep_t_procedure, ArrayList<QuantitativeDataVariable> allTheQDVs) { 
         
-        hBox_Model = new HorizontalBoxPlot_Model(allTheQDVs);
-        vBox_Model = new VerticalBoxPlot_Model(allTheQDVs);
-        qqPlot_Model = new QQPlot_Model(allTheQDVs);
-        bbsl_Model = new BBSL_Model(allTheQDVs);
+        hBox_Model = new HorizontalBoxPlot_Model(this, "Null", allTheQDVs);
+        vBox_Model = new VerticalBoxPlot_Model(this, "Null", allTheQDVs);
+        qqPlot_Model = new QQPlot_Model(this, "Null", allTheQDVs);
+        bbsl_Model = new BBSL_Model(this, "Null", allTheQDVs);
         this.indep_t_procedure = indep_t_procedure;
         indep_t_Model = new Indep_t_Model(indep_t_procedure, allTheQDVs);
         indep_t_Model.doIndepTAnalysis();

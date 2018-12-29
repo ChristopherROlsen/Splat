@@ -1,19 +1,18 @@
 /**************************************************
  *               Single_t_Dashboard               *
- *                    12/08/18                    *
- *                     12:00                      *
+ *                    12/25/18                    *
+ *                     15:00                      *
  *************************************************/
 package t_Procedures;
 
-import genericClasses.Dashboard;
-import genericClasses.QuantitativeDataVariable;
+import superClasses.Dashboard;
+import dataObjects.QuantitativeDataVariable;
 import genericClasses.DragableAnchorPane;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.scene.paint.Color;
 import proceduresOneUnivariate.*;
-import proceduresTwoUnivariate.*;
 
 public class Single_t_Dashboard extends Dashboard {
     //  POJOs
@@ -54,7 +53,7 @@ public class Single_t_Dashboard extends Dashboard {
         // *  The stemNLeaf_Model parameters are also supporting a back-  *
         // *  to-back stem and leaf plot.                                 *
         // ****************************************************************
-        stemNLeaf_Model = new StemNLeaf_Model(theQDV, false, 0, 0, 0);
+        stemNLeaf_Model = new StemNLeaf_Model("Null", theQDV, false, 0, 0, 0);
         stemNLeaf_Model = single_t_prepStructs.getStemNLeaf_Model();
         single_t_Model = single_t_prepStructs.getSingleTModel();
         

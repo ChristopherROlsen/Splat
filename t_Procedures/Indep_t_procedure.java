@@ -5,9 +5,9 @@
  *************************************************/
 package t_Procedures;
 
-import genericClasses.CatQuantDataVariable;
-import genericClasses.ColumnOfData;
-import genericClasses.QuantitativeDataVariable;
+import dataObjects.CatQuantDataVariable;
+import dataObjects.ColumnOfData;
+import dataObjects.QuantitativeDataVariable;
 import java.util.ArrayList;
 import javafx.scene.control.TextArea;
 import splat.*;
@@ -27,11 +27,11 @@ public class Indep_t_procedure {
     Indep_t_PrepStructs indep_t_prepStructs;    
     QuantitativeDataVariable tempQDV;
     ArrayList<QuantitativeDataVariable> allTheQDVs;
-    Splat_DataManager dm;
+    Data_Manager dm;
     TextArea myText;
 
     // ******  Constructor called from Main Menu  ******
-    public Indep_t_procedure(Splat_DataManager dm) {
+    public Indep_t_procedure(Data_Manager dm) {
         this.dm = dm; 
         ArrayList<ColumnOfData> indivColsOfData;
         ArrayList<String> varLabel = new ArrayList();
@@ -39,7 +39,6 @@ public class Indep_t_procedure {
 
     // ******                 Called from Main Menu                 ******    
     public String chooseTheStructureOfData() {
-            System.out.println("51 ANOVA1_Proc, doTheProcedure()");
             StructOfRawData_Dialog genChoice = new StructOfRawData_Dialog();
             String returnStatus = genChoice.getReturnStatus();
             if (returnStatus.equals("Cancel")) { return returnStatus; }
