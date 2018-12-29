@@ -5,7 +5,7 @@
  *************************************************/
 package chiSquare;
 
-import genericClasses.Dashboard;
+import superClasses.Dashboard;
 import genericClasses.DragableAnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

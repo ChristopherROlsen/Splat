@@ -6,8 +6,8 @@
 package chiSquare;
 
 import dialogs.X2GOFOneVar_Dialog;
-import genericClasses.ColumnOfData;
-import splat.Splat_DataManager;
+import dataObjects.ColumnOfData;
+import splat.Data_Manager;
 
 public class X2GOF_Procedure {
     // POJOs
@@ -15,7 +15,7 @@ public class X2GOF_Procedure {
     
     // My classes
     private ColumnOfData columnOfData;
-    Splat_DataManager myData;
+    Data_Manager myData;
     X2GOF_Model x2GOF_Model;
     X2GOF_Dashboard x2GOF_Dashboard;
     
@@ -41,7 +41,7 @@ public class X2GOF_Procedure {
         return returnStatus;
     }
     
-    public String doGOF_FromFileData(Splat_DataManager myData) {
+    public String doGOF_FromFileData(Data_Manager myData) {
         this.myData = myData;
 
         X2GOFOneVar_Dialog x2GOF_Dialog = new X2GOFOneVar_Dialog(myData, "CATEGORICAL");

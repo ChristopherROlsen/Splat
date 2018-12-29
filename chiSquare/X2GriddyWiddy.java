@@ -6,8 +6,8 @@
 
 package chiSquare;
 
-import genericClasses.DataUtilities;
-import genericClasses.MyAlerts;
+import utilityClasses.DataUtilities;
+import utilityClasses.MyAlerts;
 import java.util.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;

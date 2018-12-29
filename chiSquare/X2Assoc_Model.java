@@ -8,10 +8,10 @@ package chiSquare;
 
 import dialogs.X2Assoc_SummaryDialog;
 import javafx.scene.text.Text;
-import genericClasses.ColumnOfData;
+import dataObjects.ColumnOfData;
 import java.util.ArrayList;
 import probabilityDistributions.* ;
-import genericClasses.UnivariateCategoricalDataObj;
+import dataObjects.UnivariateCategoricalDataObj;
 
 
 public class X2Assoc_Model {

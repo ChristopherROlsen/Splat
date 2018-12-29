@@ -8,7 +8,7 @@ package chiSquare;
 
 import genericClasses.JustAnAxis;
 import genericClasses.DragableAnchorPane;
-import genericClasses.Scatterplot_View;
+import superClasses.Scatterplot_View;
 import java.util.ArrayList;
 import javafx.geometry.Side;
 import javafx.scene.canvas.Canvas;

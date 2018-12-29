@@ -7,9 +7,9 @@ package chiSquare;
 
 import dialogs.X2Assoc_Dialog;
 import javafx.scene.control.TextArea;
-import splat.Splat_DataManager;
-import genericClasses.BivariateCategoricalDataObj;
-import genericClasses.ColumnOfData;
+import splat.Data_Manager;
+import dataObjects.BivariateCategoricalDataObj;
+import dataObjects.ColumnOfData;
 import java.util.ArrayList;
 
 public class X2Assoc_Procedure {
@@ -23,7 +23,7 @@ public class X2Assoc_Procedure {
     // My classes
     BivariateCategoricalDataObj bivCategorical;
     ArrayList<ColumnOfData> outData;
-    Splat_DataManager myData;
+    Data_Manager myData;
     X2Assoc_Model x2Assoc_Model;
     X2Assoc_Dashboard x2Assoc_Dashboard;
     
@@ -50,7 +50,7 @@ public class X2Assoc_Procedure {
         }
     }  
 
-    public String doAssoc_FromFile(Splat_DataManager myData) {
+    public String doAssoc_FromFile(Data_Manager myData) {
         this.myData = myData;
         returnStatus = "";
         X2Assoc_Dialog x2Assoc_Dialog = new X2Assoc_Dialog(myData, "CATEGORICAL");

@@ -8,9 +8,9 @@ package chiSquare;
 
 import dialogs.X2GOF_DataByHandDialog;
 import dialogs.X2GOF_DataFromFileDialog;
-import genericClasses.StringUtilities;
-import genericClasses.ColumnOfData;
-import genericClasses.UnivariateCategoricalDataObj;
+import utilityClasses.StringUtilities;
+import dataObjects.ColumnOfData;
+import dataObjects.UnivariateCategoricalDataObj;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

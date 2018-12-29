@@ -36,8 +36,8 @@ public class X2_Menu {
            strIndepDescr, chosenProcedure;        
 
     // My classes
-    Splat_DataManager myData;
-    Splat_MainMenu mainMenu;
+    Data_Manager myData;
+    MainMenu mainMenu;
     X2_HelpMakeChoice x2ChoiceHelp_Control;
     X2Assoc_Model association_Control;
 
